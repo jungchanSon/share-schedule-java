@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: share-schedule
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Seoul
+    username: test
+    password: test1234
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
