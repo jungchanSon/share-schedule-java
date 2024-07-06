@@ -9,6 +9,7 @@ import com.schedule.share.user.application.service.user.UserService;
 import com.schedule.share.user.application.service.user.vo.UserVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,15 +17,17 @@ import java.util.List;
 @Tag(name = "유저", description = "유저 API")
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserApi {
-    private UserQuery userQuery;
-    private UserCommand userCommand;
-    private UserService userService;
-    private UserDTOMapper userDTOMapper;
+    private final UserDTOMapper userDTOMapper;
+
+    private final UserQuery userQuery;
+    private final UserCommand userCommand;
+    private final UserService userService;
 
     // 한명 조회
     @Operation(summary = "유저 단일 조회 API", description = "id로 유저 한명을 조회한다.")
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public UserResponseDTO.Response get(@PathVariable Long id) {
 
         UserVO.User user = userQuery.get(id);
@@ -34,7 +37,7 @@ public class UserApi {
 
     // 모두 조회
     @Operation(summary = "유저 모두 조회 API", description = "모든 유저를 조회한다.")
-    @GetMapping("/users")
+    @GetMapping
     public List<UserResponseDTO.Response> getList() {
 
         List<UserVO.User> list = userQuery.list();
@@ -47,17 +50,16 @@ public class UserApi {
 
     // 가입
     @Operation(summary = "유저 가입 API", description = "유저를 가입한다.")
-    @PostMapping("/users")
+    @PostMapping
     public void create(@RequestBody UserRequestDTO.User body) {
 
         UserVO.Save vo = userDTOMapper.toVO(body);
-
         userCommand.create(vo);
     }
 
     // 수정
     @Operation(summary = "유저 수정 API", description = "유저 정보를 수정한다.")
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public void update(@PathVariable Long id, @RequestBody UserRequestDTO.User body) {
 
         UserVO.Save vo = userDTOMapper.toVO(body);
@@ -67,7 +69,7 @@ public class UserApi {
 
     // 탈퇴
     @Operation(summary = "유저 탈퇴 API", description = "유저를 탈퇴시킨다.")
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
 
         userCommand.delete(id);

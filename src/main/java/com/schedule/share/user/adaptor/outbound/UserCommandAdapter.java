@@ -1,12 +1,10 @@
 package com.schedule.share.user.adaptor.outbound;
 
-import com.schedule.infra.rdb.repository.UserRepository;
+import com.schedule.share.infra.rdb.repository.UserRepository;
 import com.schedule.share.user.application.port.outbound.UserCommandPort;
 import com.schedule.share.user.domain.User;
 import com.schedule.share.user.domain.mapper.UserMapper;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +16,6 @@ public class UserCommandAdapter implements UserCommandPort {
 
     @Override
     public Long create(User user) {
-
         return userRepository.save(userMapper.userToEntity(user)).getId();
     }
 
