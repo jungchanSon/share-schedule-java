@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="INFO" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">%d{HH:mm:ss.SSSZ} [%t] %-5level %logger{36} - %msg%n</Property>
+        <Property name="LOG_FILE">logs/app.log</Property>
+    </Properties>
+    <Appenders>
+        <!-- 콘솔 로그 -->
+        <Console name="ConsoleLog" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" charset="UTF-8"/>
+        </Console>
+
+        <!-- 파일 로그 -->
+        <RollingFile name="FileLog" fileName="${LOG_FILE}" filePattern="logs/app-%d{yyyy-MM-dd}.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}" charset="UTF-8"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="7"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <!-- 특정 패키지 로그 레벨 설정 -->
+        <Logger name="com.schedule.share" level="info" additivity="false">
+            <AppenderRef ref="ConsoleLog"/>
+            <AppenderRef ref="FileLog"/>
+        </Logger>
+
+        <!-- 루트 로거 설정 -->
+        <Root level="debug">
+            <AppenderRef ref="ConsoleLog" />
+            <AppenderRef ref="FileLog" />
+        </Root>
+    </Loggers>
+</Configuration>
