@@ -26,7 +26,7 @@ public class UserCommandAdapter implements UserCommandPort {
     @Override
     @Transactional
     public void update(long id, User user) {
-        UserEntity userEntity = userRepository.findById(id).get();
+        UserEntity userEntity = userRepository.findById(id).orElseThrow();
 
         UserEntity updatedUserEntity = userEntity.toBuilder()
                 .nickname(user.getNickname())
