@@ -11,7 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table (name="user")
+@Table(name = "user")
 @Getter
 @NoArgsConstructor
 public class UserEntity {

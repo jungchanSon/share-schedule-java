@@ -25,7 +25,6 @@ public class UserReader implements UserQuery {
 
     @Override
     public List<UserVO.User> list() {
-
         List<UserVO.User> userList = userQueryPort.findAll().stream().map(userMapper::userToUserVO).toList();
 
         return userList;

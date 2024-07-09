@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDTOMapper {
 
-    public UserVO.Save toVO (UserRequestDTO.User userRequestDTO) {
+    public UserVO.Save toVO(UserRequestDTO.User userRequestDTO) {
         return new UserVO.Save(
-            userRequestDTO.nickname(),
-            userRequestDTO.method(),
-            userRequestDTO.ci(),
-            userRequestDTO.image()
+                userRequestDTO.nickname(),
+                userRequestDTO.method(),
+                userRequestDTO.ci(),
+                userRequestDTO.image()
         );
     }
 

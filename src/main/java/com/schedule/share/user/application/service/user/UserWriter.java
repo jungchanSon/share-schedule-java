@@ -16,7 +16,6 @@ public class UserWriter implements UserCommand {
 
     @Override
     public Long create(UserVO.Save param) {
-
         Long id = userCommandPort.create(userMapper.userVoSaveToDomain(param));
 
         return id;
@@ -24,9 +23,7 @@ public class UserWriter implements UserCommand {
 
     @Override
     public void update(Long id, UserVO.Save param) {
-
         userCommandPort.update(userMapper.userVoSaveToDomain(id, param));
-
     }
 
     @Override
