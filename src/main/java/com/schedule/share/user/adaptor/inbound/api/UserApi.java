@@ -33,6 +33,14 @@ public class UserApi {
     private final UserCommand userCommand;
     private final UserService userService;
 
+    // 가입
+    @Operation(summary = "유저 가입 API", description = "유저를 가입한다.")
+    @PostMapping
+    public void create(@RequestBody UserRequestDTO.User body) {
+        UserVO.Save vo = userDTOMapper.toVO(body);
+        userCommand.create(vo);
+    }
+
     // 한명 조회
     @Operation(summary = "유저 단일 조회 API", description = "id로 유저 한명을 조회한다.")
     @GetMapping("/{id}")
@@ -52,14 +60,6 @@ public class UserApi {
         ).toList();
 
         return result;
-    }
-
-    // 가입
-    @Operation(summary = "유저 가입 API", description = "유저를 가입한다.")
-    @PostMapping
-    public void create(@RequestBody UserRequestDTO.User body) {
-        UserVO.Save vo = userDTOMapper.toVO(body);
-        userCommand.create(vo);
     }
 
     // 수정
