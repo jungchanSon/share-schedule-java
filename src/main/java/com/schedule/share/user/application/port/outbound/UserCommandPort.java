@@ -4,9 +4,9 @@ import com.schedule.share.user.domain.User;
 
 public interface UserCommandPort {
 
-    public long create(User user);
+    long create(User user);
 
-    public void update(User user);
+    void update(User user);
 
-    public void delete(long id);
+    void delete(long id);
 }

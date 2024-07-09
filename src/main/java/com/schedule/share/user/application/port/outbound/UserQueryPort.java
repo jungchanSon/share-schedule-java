@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserQueryPort {
 
-    public List<User> findAll();
+    List<User> findAll();
 
-    public User findById(long id);
+    User findById(long id);
 }
