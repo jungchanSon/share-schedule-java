@@ -17,11 +17,11 @@ public class UserReader implements UserQuery {
 
     @Override
     public UserVO.User get(long id) {
-        return UserMapper.INSTANCE.userToUserVO(userQueryPort.findById(id));
+        return UserMapper.INSTANCE.userToUserVO(userQueryPort.get(id));
     }
 
     @Override
     public List<UserVO.User> list() {
-        return userQueryPort.findAll().stream().map(UserMapper.INSTANCE::userToUserVO).toList();
+        return userQueryPort.list().stream().map(UserMapper.INSTANCE::userToUserVO).toList();
     }
 }

@@ -17,14 +17,14 @@ public class UserQueryAdaptor implements UserQueryPort {
     private final UserRepository userRepository;
 
     @Override
-    public User findById(long id) {
+    public User get(long id) {
         UserEntity user = userRepository.findById(id).orElseThrow();
 
         return UserMapper.INSTANCE.userEntityToDomain(user);
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> list() {
         return userRepository.findAll().stream().map(
                 UserMapper.INSTANCE::userEntityToDomain
         ).toList();

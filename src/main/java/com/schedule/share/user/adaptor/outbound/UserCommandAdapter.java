@@ -5,7 +5,6 @@ import com.schedule.share.infra.rdb.repository.UserRepository;
 import com.schedule.share.user.application.port.outbound.UserCommandPort;
 import com.schedule.share.user.domain.User;
 import com.schedule.share.user.domain.mapper.UserMapper;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
