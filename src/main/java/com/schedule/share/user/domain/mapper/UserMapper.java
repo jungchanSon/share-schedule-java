@@ -19,7 +19,7 @@ public class UserMapper{
     }
 
     // id O
-    public User userVoSaveToDomain (Long id, UserVO.Save userVoSave) {
+    public User userVoSaveToDomain (long id, UserVO.Save userVoSave) {
         return new User(
                 id,
                 userVoSave.nickname(),

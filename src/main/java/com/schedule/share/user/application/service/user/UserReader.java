@@ -17,7 +17,7 @@ public class UserReader implements UserQuery {
     private final UserMapper userMapper;
 
     @Override
-    public UserVO.User get(Long id) {
+    public UserVO.User get(long id) {
         UserVO.User user = userMapper.userToUserVO(userQueryPort.findById(id));
 
         return user;

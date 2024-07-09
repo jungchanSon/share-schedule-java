@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface DomainQuery<T> {
 
-    public T get(Long id);
+    public T get(long id);
 
     public List<T> list();
 

@@ -2,10 +2,10 @@ package com.schedule.share.user.application.service;
 
 public interface DomainCommand<R> {
 
-    public Long create(R param);
+    public long create(R param);
 
-    public void update(Long id, R param);
+    public void update(long id, R param);
 
-    public void delete(Long id);
+    public void delete(long id);
 
 }

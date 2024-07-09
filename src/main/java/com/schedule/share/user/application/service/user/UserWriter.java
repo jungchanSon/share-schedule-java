@@ -15,19 +15,19 @@ public class UserWriter implements UserCommand {
     private final UserMapper userMapper;
 
     @Override
-    public Long create(UserVO.Save param) {
-        Long id = userCommandPort.create(userMapper.userVoSaveToDomain(param));
+    public long create(UserVO.Save param) {
+        long id = userCommandPort.create(userMapper.userVoSaveToDomain(param));
 
         return id;
     }
 
     @Override
-    public void update(Long id, UserVO.Save param) {
+    public void update(long id, UserVO.Save param) {
         userCommandPort.update(userMapper.userVoSaveToDomain(id, param));
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(long id) {
         userCommandPort.delete(id);
     }
 }

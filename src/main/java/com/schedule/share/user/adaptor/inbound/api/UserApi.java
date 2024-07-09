@@ -29,7 +29,7 @@ public class UserApi {
     // 한명 조회
     @Operation(summary = "유저 단일 조회 API", description = "id로 유저 한명을 조회한다.")
     @GetMapping("/{id}")
-    public UserResponseDTO.Response get(@PathVariable Long id) {
+    public UserResponseDTO.Response get(@PathVariable long id) {
         UserVO.User user = userQuery.get(id);
 
         return userDTOMapper.toResponseDTO(user);
@@ -58,7 +58,7 @@ public class UserApi {
     // 수정
     @Operation(summary = "유저 수정 API", description = "유저 정보를 수정한다.")
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody UserRequestDTO.User body) {
+    public void update(@PathVariable long id, @RequestBody UserRequestDTO.User body) {
         UserVO.Save vo = userDTOMapper.toVO(body);
         userCommand.update(id, vo);
     }
@@ -66,7 +66,7 @@ public class UserApi {
     // 탈퇴
     @Operation(summary = "유저 탈퇴 API", description = "유저를 탈퇴시킨다.")
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable long id) {
         userCommand.delete(id);
     }
 }

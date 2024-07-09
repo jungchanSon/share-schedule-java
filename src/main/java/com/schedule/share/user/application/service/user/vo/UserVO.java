@@ -9,7 +9,7 @@ public class UserVO {
 
     // query 용
     public record User(
-        Long id,
+        long id,
         String nickname,
         String method,
         String ci,

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class UserResponseDTO {
 
     public record Response(
-        Long id,
+        long id,
         String nickname,
         String method,
         String ci,

@@ -16,10 +16,10 @@ public class UserCommandAdapter implements UserCommandPort {
     private final UserMapper userMapper;
 
     @Override
-    public Long create(User user) {
+    public long create(User user) {
         UserEntity userEntity = userMapper.userToEntity(user);
 
-        return userRepository.save(userEntity).getId();
+        return  userRepository.save(userEntity).getId();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class UserCommandAdapter implements UserCommandPort {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(long id) {
         userRepository.deleteById(id);
     }
 }

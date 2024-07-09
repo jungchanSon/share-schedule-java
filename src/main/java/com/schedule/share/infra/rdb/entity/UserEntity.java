@@ -18,7 +18,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private String nickname;
 
@@ -38,7 +38,7 @@ public class UserEntity {
     @Nullable
     private LocalDateTime modifiedAt;
 
-    public UserEntity(Long id,
+    public UserEntity(long id,
                       String nickname,
                       String method,
                       String ci,

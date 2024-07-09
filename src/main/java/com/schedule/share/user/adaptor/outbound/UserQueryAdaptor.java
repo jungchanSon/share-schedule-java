@@ -18,7 +18,7 @@ public class UserQueryAdaptor implements UserQueryPort {
     private final UserMapper userMapper;
 
     @Override
-    public User findById(Long id) {
+    public User findById(long id) {
         UserEntity user = userRepository.findById(id).get();
 
         return userMapper.userEntityToDomain(user);

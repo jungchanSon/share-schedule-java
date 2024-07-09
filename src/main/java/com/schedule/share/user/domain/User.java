@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class User {
-    private Long id;
+    private long id;
     private String nickname;
     private String method;
     private String ci;
@@ -17,7 +17,7 @@ public class User {
 
 //  ToDomain
     public User (
-        Long id,
+        long id,
         String nickname,
         String method,
         String ci,
@@ -42,7 +42,7 @@ public class User {
         this.image = image;
     }
 
-    public User(Long id,
+    public User(long id,
                 String nickname,
                 String method,
                 String ci,
