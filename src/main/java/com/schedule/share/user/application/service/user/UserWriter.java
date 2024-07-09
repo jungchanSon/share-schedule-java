@@ -5,9 +5,9 @@ import com.schedule.share.user.application.port.outbound.UserCommandPort;
 import com.schedule.share.user.application.service.user.vo.UserVO;
 import com.schedule.share.user.domain.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class UserWriter implements UserCommand {
 

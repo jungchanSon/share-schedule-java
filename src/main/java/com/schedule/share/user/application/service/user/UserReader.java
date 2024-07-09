@@ -5,11 +5,11 @@ import com.schedule.share.user.application.port.outbound.UserQueryPort;
 import com.schedule.share.user.application.service.user.vo.UserVO;
 import com.schedule.share.user.domain.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class UserReader implements UserQuery {
 
