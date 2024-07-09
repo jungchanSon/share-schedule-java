@@ -1,8 +1,5 @@
 package com.schedule.share.user.application.service.user.vo;
 
-
-import lombok.Getter;
-
 import java.time.LocalDateTime;
 
 public class UserVO {

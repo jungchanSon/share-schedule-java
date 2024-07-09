@@ -43,7 +43,7 @@ public class UserMapper{
 
     public UserEntity userToEntity (User user) {
         return new UserEntity(
-            user.getId(),
+                user.getId(),
                 user.getNickname(),
                 user.getMethod(),
                 user.getCi(),
