@@ -2,20 +2,19 @@
 
 ## 개발관련
 
-- github
-  - [calendar](https://github.com/woorung-ymseo/share-schedule) : https://github.com/woorung-ymseo/share-schedule
-  - [user](https://github.com/jungchanSon/user-schedule-java) : https://github.com/jungchanSon/user-schedule-java
-- swagger(local)
-  - http://localhost:8080/swagger-ui/index.html
+- github : https://github.com/jungchanSon/share-schedule-java
+- swagger(local) : http://localhost:8080/swagger-ui/index.html
 
 ---
 
 ### git branch
 
 ```text
-feature/user-{yyyyMMddHHmmss}      ### 기능 관련 (api 개발, 수정 등)
-infra/user-{yyyyMMddHHmmss}        ### 인프라 관련 (docker, sql 등)
-bugfix/user-{yyyyMMddHHmmss}       ### 버그 픽스 관련 (버그 수정)
+feature/share-{yyyyMMddHHmmss}      ### 기능 관련 (api 개발, 수정 등)
+infra/share-{yyyyMMddHHmmss}        ### 인프라 관련 (docker, sql 등)
+bugfix/share-{yyyyMMddHHmmss}       ### 버그 픽스 관련 (버그 수정)
+
+ex) feature/share-20240629112315
 ```
 
 ---
@@ -26,5 +25,12 @@ bugfix/user-{yyyyMMddHHmmss}       ### 버그 픽스 관련 (버그 수정)
 [feat] {브런치명} | 내용
 [infra] {브런치명} | 내용
 [bug] {브런치명} | 내용
-```
 
+eX) [feat] feature/share-20240629112315 | 테스트
+```
+### 개발자 사이트
+```
+1. 카카오 개발자 - https://developers.kakao.com/
+2. 네이버 개발자 - https://developers.naver.com/main/
+3. 구글 개발자 - https://console.developers.google.com/apis/
+```

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소셜 로그인 테스트</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button.naver { background-color: limegreen; }
+        .button.kakao { background-color: tomato; }
+        .button.google { background-color: dodgerblue; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>소셜 로그인 테스트</h2>
+    <a href="/oauth2/authorization/google" class="button google">구글 로그인</a>
+    <a href="/oauth2/authorization/naver" class="button naver">네이버 로그인</a>
+    <a href="/oauth2/authorization/kakao" class="button kakao">카카오 로그인</a>
+    <hr>
+    <h2>회원가입</h2>
+    <a href="https://accounts.google.com/o/oauth2/auth?client_id={client_id}&redirect_uri=http://localhost:3000/oauth/redirect_url=[]" class="button google">구글 회원가입</a>
+    <a href="https://nid.naver.com/oauth2.0/authorize?client_id=[]&response_type=code&redirect_uri=[]" class="button naver">네이버 회원가입</a>
+    <a href="https://kauth.kakao.com/oauth/authorize?client_id=[]&redirect_uri=[]" class="button kakao">카카오 회원가입</a>
+</div>
+</body>
+</html>

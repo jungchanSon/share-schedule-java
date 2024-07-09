@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소셜 로그인 테스트</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button.logout { background-color: black; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>소셜 로그인 성공</h2>
+    <a th:href="@{/logout}">
+        <button class="button logout">로그아웃</button>
+    </a>
+    <hr>
+    <h2>회원 정보</h2>
+    <p>이미지 : </p>
+    <p>CI : </p>
+    <p>로그인 방법 : </p>
+</div>
+</body>
+</html>
