@@ -15,21 +15,18 @@ import java.util.List;
 public class UserQueryAdaptor implements UserQueryPort {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
     @Override
     public User findById(long id) {
         UserEntity user = userRepository.findById(id).get();
 
-        return userMapper.userEntityToDomain(user);
+        return UserMapper.INSTANCE.userEntityToDomain(user);
     }
 
     @Override
     public List<User> findAll() {
-        List<User> userList = userRepository.findAll().stream().map(
-                userMapper::userEntityToDomain
+        return userRepository.findAll().stream().map(
+                UserMapper.INSTANCE::userEntityToDomain
         ).toList();
-
-        return userList;
     }
 }

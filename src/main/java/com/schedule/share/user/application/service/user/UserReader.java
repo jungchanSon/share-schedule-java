@@ -14,19 +14,14 @@ import java.util.List;
 public class UserReader implements UserQuery {
 
     private final UserQueryPort userQueryPort;
-    private final UserMapper userMapper;
 
     @Override
     public UserVO.User get(long id) {
-        UserVO.User user = userMapper.userToUserVO(userQueryPort.findById(id));
-
-        return user;
+        return UserMapper.INSTANCE.userToUserVO(userQueryPort.findById(id));
     }
 
     @Override
     public List<UserVO.User> list() {
-        List<UserVO.User> userList = userQueryPort.findAll().stream().map(userMapper::userToUserVO).toList();
-
-        return userList;
+        return userQueryPort.findAll().stream().map(UserMapper.INSTANCE::userToUserVO).toList();
     }
 }

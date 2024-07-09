@@ -1,10 +1,13 @@
 package com.schedule.share.user.application.service.user.vo;
 
+import lombok.Builder;
+
 import java.time.LocalDateTime;
 
 public class UserVO {
 
     // query 용
+    @Builder
     public record User(
         long id,
         String nickname,
@@ -16,6 +19,7 @@ public class UserVO {
     ) {}
 
     // command 용
+    @Builder
     public record Save (
         String nickname,
         String method,

@@ -3,65 +3,19 @@ package com.schedule.share.user.domain.mapper;
 import com.schedule.share.infra.rdb.entity.UserEntity;
 import com.schedule.share.user.application.service.user.vo.UserVO;
 import com.schedule.share.user.domain.User;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-@Component
-public class UserMapper{
+@Mapper
+public interface UserMapper{
 
+    UserMapper INSTANCE =  Mappers.getMapper(UserMapper.class);
     // id X
-    public User userVoSaveToDomain (UserVO.Save userVoSave) {
-        return new User(
-            userVoSave.nickname(),
-            userVoSave.method(),
-            userVoSave.ci(),
-            userVoSave.image()
-        );
-    }
+    User userVoSaveToDomain (UserVO.Save userVoSave);
 
-    // id O
-    public User userVoSaveToDomain (long id, UserVO.Save userVoSave) {
-        return new User(
-                id,
-                userVoSave.nickname(),
-                userVoSave.method(),
-                userVoSave.ci(),
-                userVoSave.image()
-        );
-    }
+    User userEntityToDomain (UserEntity user);
 
-    public User userEntityToDomain (UserEntity user) {
-        return new User(
-                user.getId(),
-                user.getNickname(),
-                user.getMethod(),
-                user.getCi(),
-                user.getImage(),
-                user.getRegisteredAt(),
-                user.getModifiedAt()
-        );
-    }
+    UserEntity userToEntity (User user);
 
-    public UserEntity userToEntity (User user) {
-        return new UserEntity(
-                user.getId(),
-                user.getNickname(),
-                user.getMethod(),
-                user.getCi(),
-                user.getImage(),
-                user.getRegisteredAt(),
-                user.getModifiedAt()
-        );
-    }
-
-    public UserVO.User userToUserVO (User user) {
-        return new UserVO.User(
-                user.getId(),
-                user.getNickname(),
-                user.getMethod(),
-                user.getCi(),
-                user.getImage(),
-                user.getRegisteredAt(),
-                user.getModifiedAt()
-        );
-    }
+    UserVO.User userToUserVO (User user);
 }

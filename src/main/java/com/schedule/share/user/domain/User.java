@@ -1,10 +1,12 @@
 package com.schedule.share.user.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
 public class User {
     private long id;
     private String nickname;
@@ -13,45 +15,4 @@ public class User {
     private String image;
     private LocalDateTime registeredAt;
     private LocalDateTime modifiedAt;
-
-
-//  ToDomain
-    public User (
-        long id,
-        String nickname,
-        String method,
-        String ci,
-        String image,
-        LocalDateTime registeredAt,
-        LocalDateTime modifiedAt
-    ) {
-        this.id = id;
-        this.nickname = nickname;
-        this.method = method;
-        this.ci = ci;
-        this.image = image;
-        this.registeredAt = registeredAt;
-        this.modifiedAt = modifiedAt;
-
-    }
-
-    public User(String nickname, String method, String ci, String image) {
-        this.nickname = nickname;
-        this.method = method;
-        this.ci = ci;
-        this.image = image;
-    }
-
-    public User(long id,
-                String nickname,
-                String method,
-                String ci,
-                String image
-    ) {
-        this.id = id;
-        this.nickname = nickname;
-        this.method = method;
-        this.ci = ci;
-        this.image = image;
-    }
 }

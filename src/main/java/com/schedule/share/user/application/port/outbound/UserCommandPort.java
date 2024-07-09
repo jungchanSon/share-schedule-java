@@ -6,7 +6,7 @@ public interface UserCommandPort {
 
     long create(User user);
 
-    void update(User user);
+    void update(long id, User user);
 
     void delete(long id);
 }

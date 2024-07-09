@@ -27,8 +27,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserApi {
 
-    private final UserDTOMapper userDTOMapper;
-
     private final UserQuery userQuery;
     private final UserCommand userCommand;
     private final UserService userService;
@@ -37,7 +35,7 @@ public class UserApi {
     @Operation(summary = "유저 가입 API", description = "유저를 가입한다.")
     @PostMapping
     public void create(@RequestBody UserRequestDTO.User body) {
-        UserVO.Save vo = userDTOMapper.toVO(body);
+        UserVO.Save vo = UserDTOMapper.INSTANCE.toVO(body);
         userCommand.create(vo);
     }
 
@@ -47,7 +45,7 @@ public class UserApi {
     public UserResponseDTO.Response get(@PathVariable long id) {
         UserVO.User user = userQuery.get(id);
 
-        return userDTOMapper.toResponseDTO(user);
+        return UserDTOMapper.INSTANCE.toResponseDTO(user);
     }
 
     // 모두 조회
@@ -56,7 +54,7 @@ public class UserApi {
     public List<UserResponseDTO.Response> getList() {
         List<UserVO.User> list = userQuery.list();
         List<UserResponseDTO.Response> result = list.stream().map(
-                user -> userDTOMapper.toResponseDTO(user)
+                UserDTOMapper.INSTANCE::toResponseDTO
         ).toList();
 
         return result;
@@ -66,7 +64,7 @@ public class UserApi {
     @Operation(summary = "유저 수정 API", description = "유저 정보를 수정한다.")
     @PutMapping("/{id}")
     public void update(@PathVariable long id, @RequestBody UserRequestDTO.User body) {
-        UserVO.Save vo = userDTOMapper.toVO(body);
+        UserVO.Save vo = UserDTOMapper.INSTANCE.toVO(body);
         userCommand.update(id, vo);
     }
 
