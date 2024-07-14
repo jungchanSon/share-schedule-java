@@ -1,5 +1,6 @@
 package com.schedule.share.infra.rdb.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -34,7 +35,8 @@ public class FavoriteEntity {
 
     private long calendarId;
 
-    private boolean isAllday;
+    @Column(name = "is_allday")
+    private boolean allday;
 
     private LocalDateTime scheduleStartDatetime;
 

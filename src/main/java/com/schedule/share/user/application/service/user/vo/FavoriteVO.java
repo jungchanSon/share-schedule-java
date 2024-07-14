@@ -12,7 +12,7 @@ public class FavoriteVO {
             long userId,
             long scheduleId,
             long calendarId,
-            boolean isAllday,
+            boolean allday,
             LocalDateTime scheduleStartDatetime,
             LocalDateTime scheduleEndDatetime,
             LocalDateTime createdAt
@@ -23,7 +23,7 @@ public class FavoriteVO {
             long userId,
             long scheduleId,
             long calendarId,
-            boolean isAllday,
+            boolean allday,
             LocalDateTime scheduleStartDatetime,
             LocalDateTime scheduleEndDatetime
     ) {}

@@ -26,7 +26,7 @@ public class FavoriteCommandAdaptor implements FavoriteCommandPort {
         FavoriteEntity favoriteEntity = favoriteRepository.findById(id).orElseThrow();
 
         FavoriteEntity result = favoriteEntity.toBuilder()
-                .isAllday(param.isAllday())
+                .allday(param.isAllday())
                 .scheduleStartDatetime(param.getScheduleStartDatetime())
                 .scheduleEndDatetime(param.getScheduleEndDatetime())
                 .build();
