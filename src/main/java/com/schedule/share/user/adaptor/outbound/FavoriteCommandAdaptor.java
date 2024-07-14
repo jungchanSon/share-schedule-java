@@ -8,8 +8,6 @@ import com.schedule.share.user.domain.mapper.FavoriteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-
 @Component
 @RequiredArgsConstructor
 public class FavoriteCommandAdaptor implements FavoriteCommandPort {
@@ -25,11 +23,10 @@ public class FavoriteCommandAdaptor implements FavoriteCommandPort {
 
     @Override
     public void update(long id, Favorite param) {
-        FavoriteEntity result = FavoriteMapper.INSTANCE.favoriteToEntity(param).toBuilder()
-                .userId(param.getUserId())
-                .scheduleId(param.getScheduleId())
-                .calendarId(param.getCalendarId())
-                .isAllday(param.getIsAllday())
+        FavoriteEntity favoriteEntity = favoriteRepository.findById(id).orElseThrow();
+
+        FavoriteEntity result = favoriteEntity.toBuilder()
+                .isAllday(param.isAllday())
                 .scheduleStartDatetime(param.getScheduleStartDatetime())
                 .scheduleEndDatetime(param.getScheduleEndDatetime())
                 .build();
