@@ -8,7 +8,7 @@ public class FavoriteRequestDTO {
             long userId,
             long scheduleId,
             long calendarId,
-            int isAllday,
+            boolean isAllday,
             LocalDateTime scheduleStartDatetime,
             LocalDateTime scheduleEndDatetime
     ) {

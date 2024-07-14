@@ -12,7 +12,7 @@ public class Favorite {
     private long userId;
     private long scheduleId;
     private long calendarId;
-    private int isAllday;
+    private boolean isAllday;
     private LocalDateTime scheduleStartDatetime;
     private LocalDateTime scheduleEndDatetime;
     private LocalDateTime createdAt;
