@@ -34,7 +34,7 @@ public class FavoriteEntity {
 
     private long calendarId;
 
-    private int isAllday;
+    private boolean isAllday;
 
     private LocalDateTime scheduleStartDatetime;
 
