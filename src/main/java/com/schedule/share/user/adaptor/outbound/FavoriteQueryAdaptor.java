@@ -15,18 +15,19 @@ import java.util.List;
 public class FavoriteQueryAdaptor implements FavoriteQueryPort {
 
     private final FavoriteRepository favoriteRepository;
+    private final FavoriteMapper favoriteMapper;
 
     @Override
     public Favorite get(long id) {
         FavoriteEntity favoriteEntity = favoriteRepository.findById(id).orElseThrow();
 
-        return FavoriteMapper.INSTANCE.favoriteEntityToDomain(favoriteEntity);
+        return favoriteMapper.favoriteEntityToDomain(favoriteEntity);
     }
 
     @Override
     public List<Favorite> list() {
         return favoriteRepository.findAll().stream().map(
-                FavoriteMapper.INSTANCE::favoriteEntityToDomain
+                favoriteMapper::favoriteEntityToDomain
         ).toList();
     }
 }

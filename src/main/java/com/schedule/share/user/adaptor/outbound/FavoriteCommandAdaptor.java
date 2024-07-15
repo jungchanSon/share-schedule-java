@@ -13,10 +13,11 @@ import org.springframework.stereotype.Component;
 public class FavoriteCommandAdaptor implements FavoriteCommandPort {
 
     private final FavoriteRepository favoriteRepository;
+    private final FavoriteMapper favoriteMapper;
 
     @Override
     public long create(Favorite param) {
-        FavoriteEntity favoriteEntity = FavoriteMapper.INSTANCE.favoriteToEntity(param);
+        FavoriteEntity favoriteEntity = favoriteMapper.favoriteToEntity(param);
 
         return favoriteRepository.save(favoriteEntity).getId();
     }

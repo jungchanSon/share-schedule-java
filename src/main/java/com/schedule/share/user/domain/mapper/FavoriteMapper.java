@@ -5,12 +5,9 @@ import com.schedule.share.user.application.service.user.vo.FavoriteVO;
 import com.schedule.share.user.domain.Favorite;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface FavoriteMapper {
-
-    FavoriteMapper INSTANCE = Mappers.getMapper(FavoriteMapper.class);
 
     @Mapping(source = "isAllday", target = "isAllday")
     Favorite favoriteVoSaveToDomain(FavoriteVO.save favorite);

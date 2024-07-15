@@ -12,15 +12,16 @@ import org.springframework.stereotype.Service;
 public class FavoriteWriter implements FavoriteCommand {
 
     private final FavoriteCommandPort favoriteCommandPort;
+    private final FavoriteMapper favoriteMapper;
 
     @Override
     public long create(FavoriteVO.save param) {
-        return favoriteCommandPort.create(FavoriteMapper.INSTANCE.favoriteVoSaveToDomain(param));
+        return favoriteCommandPort.create(favoriteMapper.favoriteVoSaveToDomain(param));
     }
 
     @Override
     public void update(long id, FavoriteVO.save param) {
-        favoriteCommandPort.update(id, FavoriteMapper.INSTANCE.favoriteVoSaveToDomain(param));
+        favoriteCommandPort.update(id, favoriteMapper.favoriteVoSaveToDomain(param));
     }
 
     @Override

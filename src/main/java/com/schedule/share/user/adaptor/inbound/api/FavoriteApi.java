@@ -7,6 +7,7 @@ import com.schedule.share.user.application.port.inbound.FavoriteCommand;
 import com.schedule.share.user.application.port.inbound.FavoriteQuery;
 import com.schedule.share.user.application.service.user.FavoriteService;
 import com.schedule.share.user.application.service.user.vo.FavoriteVO;
+import com.schedule.share.user.domain.mapper.FavoriteMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +31,13 @@ public class FavoriteApi {
 
     private final FavoriteCommand favoriteCommand;
     private final FavoriteQuery favoriteQuery;
+    private final FavoriteDTOMapper favoriteDTOMapper;
     private final FavoriteService favoriteService;
 
     @Operation(summary = "즐겨찾기 추가 API", description = "즐겨찾기를 추가한다.")
     @PostMapping
     public void create(@RequestBody FavoriteRequestDTO.Favorite body) {
-        favoriteCommand.create(FavoriteDTOMapper.INSTANCE.toVo(body));
+        favoriteCommand.create(favoriteDTOMapper.toVo(body));
     }
 
     @Operation(summary = "즐겨찾기 단일 조회 API", description = "즐겨찾기를 하나 조회한다.")
@@ -43,7 +45,7 @@ public class FavoriteApi {
     public FavoriteResponseDTO.Response get(@PathVariable long id) {
         FavoriteVO.Favorite favorite = favoriteQuery.get(id);
 
-        return FavoriteDTOMapper.INSTANCE.toResponseDTO(favorite);
+        return favoriteDTOMapper.toResponseDTO(favorite);
     }
 
     @Operation(summary = "즐겨찾기 모두 조회 API", description = "즐겨찾기를 모두 조회한다.")
@@ -51,13 +53,13 @@ public class FavoriteApi {
     public List<FavoriteResponseDTO.Response> getList() {
         List<FavoriteVO.Favorite> list = favoriteQuery.list();
 
-        return list.stream().map(FavoriteDTOMapper.INSTANCE::toResponseDTO).toList();
+        return list.stream().map(favoriteDTOMapper::toResponseDTO).toList();
     }
 
     @Operation(summary = "즐겨찾기 수정 API", description = "즐겨찾기를 수정한다.")
     @PutMapping("/{id}")
     public void update(@PathVariable long id, @RequestBody FavoriteRequestDTO.Favorite body) {
-        favoriteCommand.update(id, FavoriteDTOMapper.INSTANCE.toVo(body));
+        favoriteCommand.update(id, favoriteDTOMapper.toVo(body));
     }
 
     @Operation(summary = "즐겨찾기 삭제 API", description = "즐겨찾기를 하나 조회한다.")

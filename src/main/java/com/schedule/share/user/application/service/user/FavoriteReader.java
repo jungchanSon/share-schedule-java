@@ -16,19 +16,19 @@ import java.util.List;
 public class FavoriteReader implements FavoriteQuery {
 
     private final FavoriteQueryPort favoriteQueryPort;
-
+    private final FavoriteMapper favoriteMapper;
 
     @Override
     public FavoriteVO.Favorite get(long id) {
         Favorite favorite = favoriteQueryPort.get(id);
 
-        return FavoriteMapper.INSTANCE.favoriteToVO(favorite);
+        return favoriteMapper.favoriteToVO(favorite);
     }
 
     @Override
     public List<FavoriteVO.Favorite> list() {
         List<Favorite> list = favoriteQueryPort.list();
 
-        return list.stream().map(FavoriteMapper.INSTANCE::favoriteToVO).toList();
+        return list.stream().map(favoriteMapper::favoriteToVO).toList();
     }
 }
