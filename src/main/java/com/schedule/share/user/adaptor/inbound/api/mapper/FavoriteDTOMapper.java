@@ -11,4 +11,5 @@ public interface FavoriteDTOMapper {
     FavoriteVO.save toVo(FavoriteRequestDTO.Favorite favoriteRequestDTO);
 
     FavoriteResponseDTO.Response toResponseDTO(FavoriteVO.Favorite favorite);
+
 }

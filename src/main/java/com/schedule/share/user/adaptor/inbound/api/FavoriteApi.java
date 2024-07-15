@@ -7,7 +7,6 @@ import com.schedule.share.user.application.port.inbound.FavoriteCommand;
 import com.schedule.share.user.application.port.inbound.FavoriteQuery;
 import com.schedule.share.user.application.service.user.FavoriteService;
 import com.schedule.share.user.application.service.user.vo.FavoriteVO;
-import com.schedule.share.user.domain.mapper.FavoriteMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @Tag(name = "즐겨찾기", description = "즐겨찾기 API")
 @RestController
-@RequestMapping("/favorite")
+@RequestMapping("/favorites")
 @RequiredArgsConstructor
 public class FavoriteApi {
 
@@ -62,9 +60,9 @@ public class FavoriteApi {
         favoriteCommand.update(id, favoriteDTOMapper.toVo(body));
     }
 
-    @Operation(summary = "즐겨찾기 삭제 API", description = "즐겨찾기를 하나 조회한다.")
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
-        favoriteCommand.delete(id);
+    @Operation(summary = "즐겨찾기 삭제 API", description = "즐겨찾기를 삭제한다.")
+    @DeleteMapping("/{ids}")
+    public void delete(@PathVariable List<Long> ids) {
+        favoriteCommand.delete(ids);
     }
 }

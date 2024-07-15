@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Transactional
 @RequiredArgsConstructor
@@ -33,6 +35,11 @@ public class FavoriteCommandAdaptor implements FavoriteCommandPort {
 
     @Override
     public void delete(long id) {
-        favoriteRepository.deleteById(id);
     }
+
+    @Override
+    public void delete(List<Long> ids) {
+        favoriteRepository.deleteAllById(ids);
+    }
+
 }

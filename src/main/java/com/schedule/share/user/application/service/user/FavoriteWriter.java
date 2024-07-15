@@ -7,6 +7,8 @@ import com.schedule.share.user.domain.mapper.FavoriteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class FavoriteWriter implements FavoriteCommand {
@@ -26,6 +28,11 @@ public class FavoriteWriter implements FavoriteCommand {
 
     @Override
     public void delete(long id) {
-        favoriteCommandPort.delete(id);
     }
+
+    @Override
+    public void delete(List<Long> ids) {
+        favoriteCommandPort.delete(ids);
+    }
+
 }
