@@ -35,8 +35,7 @@ public class FavoriteEntity {
 
     private long calendarId;
 
-    @Column(name = "is_allday")
-    private boolean allday;
+    private boolean isAllday;
 
     private LocalDateTime scheduleStartDatetime;
 
