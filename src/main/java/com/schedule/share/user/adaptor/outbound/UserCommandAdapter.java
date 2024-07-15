@@ -14,10 +14,11 @@ import org.springframework.stereotype.Component;
 public class UserCommandAdapter implements UserCommandPort {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
     public long create(User user) {
-        UserEntity userEntity = UserMapper.INSTANCE.userToEntity(user);
+        UserEntity userEntity = userMapper.userToEntity(user);
 
         return userRepository.save(userEntity).getId();
     }

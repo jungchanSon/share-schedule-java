@@ -12,15 +12,16 @@ import org.springframework.stereotype.Service;
 public class UserWriter implements UserCommand {
 
     private final UserCommandPort userCommandPort;
+    private final UserMapper userMapper;
 
     @Override
     public long create(UserVO.Save param) {
-        return userCommandPort.create(UserMapper.INSTANCE.userVoSaveToDomain(param));
+        return userCommandPort.create(userMapper.userVoSaveToDomain(param));
     }
 
     @Override
     public void update(long id, UserVO.Save param) {
-        userCommandPort.update(id, UserMapper.INSTANCE.userVoSaveToDomain(param));
+        userCommandPort.update(id, userMapper.userVoSaveToDomain(param));
     }
 
     @Override
