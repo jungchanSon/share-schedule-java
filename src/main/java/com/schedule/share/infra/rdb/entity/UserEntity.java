@@ -40,7 +40,7 @@ public class UserEntity {
     private String ci;
 
     @Nullable
-    private String image;
+    private byte[] image;
 
     @CreatedDate
     private LocalDateTime registeredAt ;

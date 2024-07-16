@@ -12,7 +12,7 @@ public class User {
     private String nickname;
     private String method;
     private String ci;
-    private String image;
+    private byte[] image;
     private LocalDateTime registeredAt;
     private LocalDateTime modifiedAt;
 }

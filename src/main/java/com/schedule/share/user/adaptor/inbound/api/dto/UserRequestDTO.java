@@ -11,7 +11,7 @@ public class UserRequestDTO {
             String nickname,
             String method,
             String ci,
-            String image
+            byte[] image
     ) {
     }
 }
