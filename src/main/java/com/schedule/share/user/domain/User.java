@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Builder
 public class User {
     private long id;
+    private long recentCalendarId;
     private String nickname;
     private String method;
     private String ci;

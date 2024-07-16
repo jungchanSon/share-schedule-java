@@ -14,4 +14,9 @@ public class UserRequestDTO {
             byte[] image
     ) {
     }
+
+    public record RecentCalendar(
+            long recentCalendarId
+    ) {
+    }
 }

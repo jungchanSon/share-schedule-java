@@ -28,4 +28,9 @@ public class UserWriter implements UserCommand {
     public void delete(long id) {
         userCommandPort.delete(id);
     }
+
+    @Override
+    public void updateCalendarId(long id, long recentCalendarId) {
+        userCommandPort.updateCalendarId(id, recentCalendarId);
+    }
 }

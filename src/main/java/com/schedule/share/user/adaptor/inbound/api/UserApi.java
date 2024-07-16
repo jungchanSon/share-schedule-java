@@ -74,4 +74,16 @@ public class UserApi {
     public void delete(@PathVariable long id) {
         userCommand.delete(id);
     }
+
+    @Operation(summary = "최근에 본 캘린더 조회 API", description = "최근에 본 캘린더를 조회한다.")
+    @GetMapping("/{id}/recent_calendar")
+    public long getRecentCalendarId(@PathVariable long id) {
+        return  userQuery.getRecentCalendarId(id);
+    }
+
+    @Operation(summary = "최근에 본 캘린더 Id 수정", description = "최근에 본 캘린더의 id를 변경한다.")
+    @PutMapping("/{id}/recent_calendar")
+    public void updateRecentCalendarId(@PathVariable long id, @RequestBody UserRequestDTO.RecentCalendar body) {
+        userCommand.updateCalendarId(id, body.recentCalendarId());
+    }
 }

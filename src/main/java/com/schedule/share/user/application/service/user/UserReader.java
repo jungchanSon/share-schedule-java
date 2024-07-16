@@ -25,4 +25,9 @@ public class UserReader implements UserQuery {
     public List<UserVO.User> list() {
         return userQueryPort.list().stream().map(userMapper::userToUserVO).toList();
     }
+
+    @Override
+    public long getRecentCalendarId(long id) {
+        return userQueryPort.getRecentCalendarId(id);
+    }
 }

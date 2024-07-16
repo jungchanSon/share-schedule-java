@@ -55,4 +55,8 @@ public class UserEntity {
         this.ci = user.getCi();
         this.image = user.getImage();
     }
+
+    public void updateRecentCalendarId(long recentCalendarId) {
+        this.recentCalendarId = recentCalendarId;
+    }
 }

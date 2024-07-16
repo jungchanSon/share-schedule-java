@@ -10,6 +10,7 @@ public class UserVO {
     @Builder
     public record User(
         long id,
+        long recentCalendarId,
         String nickname,
         String method,
         String ci,

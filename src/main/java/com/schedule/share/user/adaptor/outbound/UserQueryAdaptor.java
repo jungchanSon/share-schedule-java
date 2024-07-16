@@ -30,4 +30,9 @@ public class UserQueryAdaptor implements UserQueryPort {
                 userMapper::userEntityToDomain
         ).toList();
     }
+
+    @Override
+    public long getRecentCalendarId(long id) {
+        return userRepository.findById(id).orElseThrow().getRecentCalendarId();
+    }
 }
