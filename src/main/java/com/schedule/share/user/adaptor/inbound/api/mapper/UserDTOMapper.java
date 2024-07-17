@@ -12,5 +12,7 @@ public interface UserDTOMapper {
 
     UserVO.Save toVO(UserRequestDTO.User userRequestDTO);
 
+    UserVO.Save toVO(UserRequestDTO.UserUpdate userUpdateDTO);
+
     UserResponseDTO.Response toResponseDTO(UserVO.User userVO);
 }

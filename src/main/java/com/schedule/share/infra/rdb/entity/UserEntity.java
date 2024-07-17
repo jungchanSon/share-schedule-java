@@ -51,8 +51,6 @@ public class UserEntity {
 
     public void updateUserEntity(User user) {
         this.nickname = user.getNickname();
-        this.method = user.getMethod();
-        this.ci = user.getCi();
         this.image = user.getImage();
     }
 

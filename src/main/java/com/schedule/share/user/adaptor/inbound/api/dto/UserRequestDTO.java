@@ -15,6 +15,12 @@ public class UserRequestDTO {
     ) {
     }
 
+    public record UserUpdate(
+            String nickname,
+            byte[] image
+    ) {
+    }
+
     public record RecentCalendar(
             long recentCalendarId
     ) {

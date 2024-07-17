@@ -63,7 +63,7 @@ public class UserApi {
     // 수정
     @Operation(summary = "유저 수정 API", description = "유저 정보를 수정한다.")
     @PutMapping("/{id}")
-    public void update(@PathVariable long id, @RequestBody UserRequestDTO.User body) {
+    public void update(@PathVariable long id, @RequestBody UserRequestDTO.UserUpdate body) {
         UserVO.Save vo = userDTOMapper.toVO(body);
         userCommand.update(id, vo);
     }
