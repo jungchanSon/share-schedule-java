@@ -36,11 +36,4 @@ public class UserCommandAdapter implements UserCommandPort {
     public void delete(long id) {
         userRepository.deleteById(id);
     }
-
-
-    @Override
-    public void updateCalendarId(long id, long recentCalendarId) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow();
-        userEntity.updateRecentCalendarId(recentCalendarId);
-    }
 }

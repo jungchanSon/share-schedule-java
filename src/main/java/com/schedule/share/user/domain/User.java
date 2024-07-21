@@ -16,4 +16,8 @@ public class User {
     private byte[] image;
     private LocalDateTime registeredAt;
     private LocalDateTime modifiedAt;
+
+    public void updateRecentCalendarId(long recentCalendarId) {
+        this.recentCalendarId = recentCalendarId;
+    }
 }

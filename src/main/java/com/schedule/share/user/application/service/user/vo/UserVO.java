@@ -22,6 +22,7 @@ public class UserVO {
     // command 용
     @Builder
     public record Save (
+        long recentCalendarId,
         String nickname,
         String method,
         String ci,

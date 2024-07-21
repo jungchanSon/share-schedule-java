@@ -2,7 +2,9 @@ package com.schedule.share.user.application.service.user;
 
 import com.schedule.share.user.application.port.inbound.UserCommand;
 import com.schedule.share.user.application.port.outbound.UserCommandPort;
+import com.schedule.share.user.application.port.outbound.UserQueryPort;
 import com.schedule.share.user.application.service.user.vo.UserVO;
+import com.schedule.share.user.domain.User;
 import com.schedule.share.user.domain.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class UserWriter implements UserCommand {
 
     private final UserCommandPort userCommandPort;
+    private final UserQueryPort userQueryPort;
     private final UserMapper userMapper;
 
     @Override
@@ -31,6 +34,9 @@ public class UserWriter implements UserCommand {
 
     @Override
     public void updateCalendarId(long id, long recentCalendarId) {
-        userCommandPort.updateCalendarId(id, recentCalendarId);
+        User user = userQueryPort.get(id);
+        user.updateRecentCalendarId(recentCalendarId);
+
+        userCommandPort.update(id, user);
     }
 }

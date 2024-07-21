@@ -52,9 +52,9 @@ public class UserEntity {
     public void updateUserEntity(User user) {
         this.nickname = user.getNickname();
         this.image = user.getImage();
-    }
 
-    public void updateRecentCalendarId(long recentCalendarId) {
-        this.recentCalendarId = recentCalendarId;
+        if (user.getRecentCalendarId() != 0) {
+            this.recentCalendarId = user.getRecentCalendarId();
+        }
     }
 }

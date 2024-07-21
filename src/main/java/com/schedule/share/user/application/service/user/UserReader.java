@@ -28,6 +28,6 @@ public class UserReader implements UserQuery {
 
     @Override
     public long getRecentCalendarId(long id) {
-        return userQueryPort.getRecentCalendarId(id);
+        return get(id).recentCalendarId();
     }
 }
