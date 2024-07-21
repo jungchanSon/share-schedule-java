@@ -27,10 +27,6 @@ public class FavoriteCommandAdaptor implements FavoriteCommandPort {
     }
 
     @Override
-    public void update(long id, Favorite param) {
-    }
-
-    @Override
     public void delete(long id) {
         favoriteRepository.deleteById(id);
     }

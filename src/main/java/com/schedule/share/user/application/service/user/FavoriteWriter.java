@@ -22,11 +22,6 @@ public class FavoriteWriter implements FavoriteCommand {
     }
 
     @Override
-    public void update(long id, FavoriteVO.save param) {
-        favoriteCommandPort.update(id, favoriteMapper.favoriteVoSaveToDomain(param));
-    }
-
-    @Override
     public void delete(long id) {
         favoriteCommandPort.delete(id);
     }
