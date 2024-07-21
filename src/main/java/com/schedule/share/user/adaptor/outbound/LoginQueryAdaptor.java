@@ -13,10 +13,6 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class LoginQueryAdaptor implements LoginQueryPort {
 
-//    @Value("${NAVER_LOGIN_FORM_URL}")
-//    private String NAVER_LOGIN_FORM_URL;
-//    @Value("${NAVER_LOGIN_CALL_BACK}")
-//    private String NAVER_LOGIN_CALL_BACK;
     @Value("${NAVER_CLIENT_ID}")
     private String NAVER_CLIENT_ID;
     @Value("${NAVER_CLIENT_SECRET}")

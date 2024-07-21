@@ -12,12 +12,6 @@ public class LoginVO {
     }
 
     @Builder
-    public record LoginCI(
-            String Ci
-    ){
-    }
-
-    @Builder
     public record NaverAccessToken(
             String access_token,
             String refresh_token,
