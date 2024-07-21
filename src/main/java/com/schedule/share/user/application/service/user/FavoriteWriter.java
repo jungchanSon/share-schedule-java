@@ -28,6 +28,7 @@ public class FavoriteWriter implements FavoriteCommand {
 
     @Override
     public void delete(long id) {
+        favoriteCommandPort.delete(id);
     }
 
     @Override

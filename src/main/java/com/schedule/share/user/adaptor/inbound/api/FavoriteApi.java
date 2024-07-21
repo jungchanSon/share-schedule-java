@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,15 +53,15 @@ public class FavoriteApi {
         return list.stream().map(favoriteDTOMapper::toResponseDTO).toList();
     }
 
-    @Operation(summary = "즐겨찾기 수정 API", description = "즐겨찾기를 수정한다.")
-    @PutMapping("/{id}")
-    public void update(@PathVariable long id, @RequestBody FavoriteRequestDTO.Favorite body) {
-        favoriteCommand.update(id, favoriteDTOMapper.toVo(body));
+    @Operation(summary = "즐겨찾기 삭제 API", description = "즐겨찾기를 삭제한다.")
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id) {
+        favoriteCommand.delete(id);
     }
 
-    @Operation(summary = "즐겨찾기 삭제 API", description = "즐겨찾기를 삭제한다.")
-    @DeleteMapping("/{ids}")
-    public void delete(@PathVariable List<Long> ids) {
-        favoriteCommand.delete(ids);
+    @Operation(summary = "즐겨찾기들 삭제 API", description = "즐겨찾기들을 삭제한다.")
+    @DeleteMapping
+    public void bulkDelete(@RequestBody FavoriteRequestDTO.BulkDelete bulkDelete) {
+        favoriteCommand.delete(bulkDelete.list());
     }
 }

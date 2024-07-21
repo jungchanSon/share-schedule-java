@@ -1,6 +1,5 @@
 package com.schedule.share.infra.rdb.entity;
 
-import com.schedule.share.user.domain.Favorite;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -43,13 +42,4 @@ public class FavoriteEntity {
 
     @CreatedDate
     private LocalDateTime createdAt;
-
-    public void updateFavoriteEntity(Favorite favoriteEntity) {
-        this.userId = favoriteEntity.getUserId();
-        this.scheduleId = favoriteEntity.getScheduleId();
-        this.calendarId = favoriteEntity.getCalendarId();
-        this.isAllday = favoriteEntity.isAllday();
-        this.scheduleStartDatetime = favoriteEntity.getScheduleStartDatetime();
-        this.scheduleEndDatetime = favoriteEntity.getScheduleEndDatetime();
-    }
 }
