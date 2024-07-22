@@ -7,5 +7,4 @@ public interface DomainCommand<R> {
     void update(long id, R param);
 
     void delete(long id);
-
 }
