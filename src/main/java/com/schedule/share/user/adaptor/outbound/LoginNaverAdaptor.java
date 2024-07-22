@@ -11,19 +11,36 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class LoginQueryAdaptor implements LoginQueryPort {
+public class LoginNaverAdaptor implements LoginQueryPort<LoginVO.NaverOauthCredential> {
 
     @Value("${NAVER_CLIENT_ID}")
     private String NAVER_CLIENT_ID;
     @Value("${NAVER_CLIENT_SECRET}")
     private String NAVER_CLIENT_SECRET;
+    @Value("${NAVER_ACCESS_TOKEN_URL}")
+    private String NAVER_ACCESS_TOKEN_URL;
+    @Value("${NAVER_USER_INFO_URL}")
+    private String NAVER_USER_INFO_URL;
 
     private final WebClient webClient;
 
-    public LoginVO.NaverAccessToken getNaverAccessToken(LoginVO.NaverOauthCredential accessTokenMaterial) {
+    @Override
+    public String getCi(LoginVO.NaverOauthCredential oauthCredentials) {
+        LoginVO.NaverAccessToken naverAccessToken = getNaverAccessToken(oauthCredentials);
+        Mono<LoginVO.NaverCredential> authorization = webClient.post()
+                .uri(NAVER_USER_INFO_URL)
+                .header("Authorization", naverAccessToken.token_type() + " " + naverAccessToken.access_token())
+                .retrieve()
+                .bodyToMono(LoginVO.NaverCredential.class);
+        LoginVO.NaverCredential block = authorization.block();
+
+        return block.response().id();
+    }
+
+    private LoginVO.NaverAccessToken getNaverAccessToken(LoginVO.NaverOauthCredential accessTokenMaterial) {
 
         Mono<LoginVO.NaverAccessToken> accessTokenMono = webClient.post()
-                .uri("https://nid.naver.com/oauth2.0/token")
+                .uri(NAVER_ACCESS_TOKEN_URL)
                 .body(
                         BodyInserters.fromFormData("grant_type", "authorization_code")
                                 .with("client_id", NAVER_CLIENT_ID)
@@ -37,18 +54,4 @@ public class LoginQueryAdaptor implements LoginQueryPort {
 
         return accessTokenMono.block();
     }
-
-    @Override
-    public String getNaverCi(LoginVO.NaverOauthCredential oauthCredentials) {
-        LoginVO.NaverAccessToken naverAccessToken = getNaverAccessToken(oauthCredentials);
-        Mono<LoginVO.NaverCredential> authorization = webClient.post()
-                .uri("https://openapi.naver.com/v1/nid/me")
-                .header("Authorization", naverAccessToken.token_type() + " " + naverAccessToken.access_token())
-                .retrieve()
-                .bodyToMono(LoginVO.NaverCredential.class);
-        LoginVO.NaverCredential block = authorization.block();
-
-        return block.response().id();
-    }
-
 }

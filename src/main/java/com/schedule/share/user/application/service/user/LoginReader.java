@@ -11,9 +11,14 @@ import org.springframework.stereotype.Service;
 public class LoginReader implements LoginQuery {
 
     private final LoginQueryPort loginQueryPort;
+//
+//    @Override
+//    public String getCi(LoginVO.NaverOauthCredential naverOauthCredential) {
+//        return loginQueryPort.getCi(naverOauthCredential);
+//    }
 
     @Override
-    public String getNaverCi(LoginVO.NaverOauthCredential naverOauthCredential) {
-        return loginQueryPort.getNaverCi(naverOauthCredential);
+    public <T> String getCi(T naverOauthCredential) {
+        return loginQueryPort.getCi(naverOauthCredential);
     }
 }
