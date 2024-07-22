@@ -1,5 +1,6 @@
 package com.schedule.share.infra.rdb.entity;
 
+import com.schedule.share.user.domain.User;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -23,12 +24,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Builder(toBuilder = true)
+@Builder
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    private long recentCalendarId;
 
     private String nickname;
 
@@ -37,7 +40,7 @@ public class UserEntity {
     private String ci;
 
     @Nullable
-    private String image;
+    private byte[] image;
 
     @CreatedDate
     private LocalDateTime registeredAt ;
@@ -45,4 +48,13 @@ public class UserEntity {
     @CreatedDate
     @LastModifiedDate
     private LocalDateTime modifiedAt;
+
+    public void updateUserEntity(User user) {
+        this.nickname = user.getNickname();
+        this.image = user.getImage();
+
+        if (user.getRecentCalendarId() != 0) {
+            this.recentCalendarId = user.getRecentCalendarId();
+        }
+    }
 }

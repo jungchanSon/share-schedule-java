@@ -29,13 +29,14 @@ public class UserApi {
 
     private final UserQuery userQuery;
     private final UserCommand userCommand;
+    private final UserDTOMapper userDTOMapper;
     private final UserService userService;
 
     // 가입
     @Operation(summary = "유저 가입 API", description = "유저를 가입한다.")
     @PostMapping
     public void create(@RequestBody UserRequestDTO.User body) {
-        UserVO.Save vo = UserDTOMapper.INSTANCE.toVO(body);
+        UserVO.Save vo = userDTOMapper.toVO(body);
         userCommand.create(vo);
     }
 
@@ -45,7 +46,7 @@ public class UserApi {
     public UserResponseDTO.Response get(@PathVariable long id) {
         UserVO.User user = userQuery.get(id);
 
-        return UserDTOMapper.INSTANCE.toResponseDTO(user);
+        return userDTOMapper.toResponseDTO(user);
     }
 
     // 모두 조회
@@ -53,18 +54,17 @@ public class UserApi {
     @GetMapping
     public List<UserResponseDTO.Response> getList() {
         List<UserVO.User> list = userQuery.list();
-        List<UserResponseDTO.Response> result = list.stream().map(
-                UserDTOMapper.INSTANCE::toResponseDTO
-        ).toList();
 
-        return result;
+        return list.stream().map(
+                userDTOMapper::toResponseDTO
+        ).toList();
     }
 
     // 수정
     @Operation(summary = "유저 수정 API", description = "유저 정보를 수정한다.")
     @PutMapping("/{id}")
-    public void update(@PathVariable long id, @RequestBody UserRequestDTO.User body) {
-        UserVO.Save vo = UserDTOMapper.INSTANCE.toVO(body);
+    public void update(@PathVariable long id, @RequestBody UserRequestDTO.UserUpdate body) {
+        UserVO.Save vo = userDTOMapper.toVO(body);
         userCommand.update(id, vo);
     }
 
@@ -73,5 +73,17 @@ public class UserApi {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable long id) {
         userCommand.delete(id);
+    }
+
+    @Operation(summary = "최근에 본 캘린더 조회 API", description = "최근에 본 캘린더를 조회한다.")
+    @GetMapping("/{id}/recent_calendar")
+    public long getRecentCalendarId(@PathVariable long id) {
+        return  userQuery.getRecentCalendarId(id);
+    }
+
+    @Operation(summary = "최근에 본 캘린더 Id 수정", description = "최근에 본 캘린더의 id를 변경한다.")
+    @PutMapping("/{id}/recent_calendar")
+    public void updateRecentCalendarId(@PathVariable long id, @RequestBody UserRequestDTO.RecentCalendar body) {
+        userCommand.updateCalendarId(id, body.recentCalendarId());
     }
 }

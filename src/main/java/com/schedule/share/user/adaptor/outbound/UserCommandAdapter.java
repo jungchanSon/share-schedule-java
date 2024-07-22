@@ -5,19 +5,22 @@ import com.schedule.share.infra.rdb.repository.UserRepository;
 import com.schedule.share.user.application.port.outbound.UserCommandPort;
 import com.schedule.share.user.domain.User;
 import com.schedule.share.user.domain.mapper.UserMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 
 @Component
 @RequiredArgsConstructor
+@Transactional
 public class UserCommandAdapter implements UserCommandPort {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
     public long create(User user) {
-        UserEntity userEntity = UserMapper.INSTANCE.userToEntity(user);
+        UserEntity userEntity = userMapper.userToEntity(user);
 
         return userRepository.save(userEntity).getId();
     }
@@ -26,14 +29,7 @@ public class UserCommandAdapter implements UserCommandPort {
     public void update(long id, User user) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow();
 
-        UserEntity updatedUserEntity = userEntity.toBuilder()
-                .nickname(user.getNickname())
-                .method(user.getMethod())
-                .ci(user.getCi())
-                .image(user.getImage())
-                .build();
-
-        userRepository.save(updatedUserEntity);
+        userEntity.updateUserEntity(user);
     }
 
     @Override

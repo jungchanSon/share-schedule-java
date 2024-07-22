@@ -9,10 +9,11 @@ public class UserResponseDTO {
     @Builder
     public record Response(
         long id,
+        long recentCalendarId,
         String nickname,
         String method,
         String ci,
-        String image,
+        byte[] image,
         LocalDateTime registeredAt,
         LocalDateTime modifiedAt
     ) {

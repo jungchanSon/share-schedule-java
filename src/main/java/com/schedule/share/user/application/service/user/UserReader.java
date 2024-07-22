@@ -14,14 +14,20 @@ import java.util.List;
 public class UserReader implements UserQuery {
 
     private final UserQueryPort userQueryPort;
+    private final UserMapper userMapper;
 
     @Override
     public UserVO.User get(long id) {
-        return UserMapper.INSTANCE.userToUserVO(userQueryPort.get(id));
+        return userMapper.userToUserVO(userQueryPort.get(id));
     }
 
     @Override
     public List<UserVO.User> list() {
-        return userQueryPort.list().stream().map(UserMapper.INSTANCE::userToUserVO).toList();
+        return userQueryPort.list().stream().map(userMapper::userToUserVO).toList();
+    }
+
+    @Override
+    public long getRecentCalendarId(long id) {
+        return get(id).recentCalendarId();
     }
 }
