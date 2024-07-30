@@ -1,8 +1,10 @@
 package com.schedule.share.user.application.service.user.vo;
 
 import lombok.Builder;
+import lombok.Getter;
 
-public class LoginVO {
+@Getter
+public class SocialLoginVO {
 
     @Builder
     public record NaverOauthCredential(
@@ -33,6 +35,20 @@ public class LoginVO {
             String id,
             String profile_image,
             String name
+    ) {
+    }
+
+    @Builder
+    public record UserInfo (
+            String nickname,
+            byte[] image
+    ) {
+    }
+
+    @Builder
+    public record Token(
+            String accessToken,
+            String refreshToken
     ) {
     }
 }
