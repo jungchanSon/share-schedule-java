@@ -33,10 +33,6 @@ public class SocialLoginApi {
         UserVO.Save userVO = userDTOMapper.toVO(userInfo);
         SocialLoginVO.Token token = loginServiceUseCase.sign(naverOauthVO, userVO);
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("accessToken", token.accessToken());
-        httpHeaders.add("refreshToken", token.refreshToken());
-
         return socialLoginDTOMapper.toResponse(token);
     }
 
