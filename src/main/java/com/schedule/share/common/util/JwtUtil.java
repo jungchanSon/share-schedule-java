@@ -17,11 +17,12 @@ public class JwtUtil {
     @Value("${jwt.REFRESH_EXP_MS}")
     private int REFRESH_EXP_MS;
 
-    public String generateAccessToken(String ci) {
+    public String generateAccessToken(long userId, String nickname) {
         Date now = new Date();
 
         return Jwts.builder()
-                .claim("ci", ci)
+                .claim("userId", userId)
+                .claim("nickname", nickname)
                 .subject("accessToken")
                 .issuedAt(now)
                 .expiration(new Date(now.getTime() + ACCESS_EXP_MS))
@@ -29,11 +30,11 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String generateRefreshToken(String ci) {
+    public String generateRefreshToken(long userId) {
         Date now = new Date();
 
         return Jwts.builder()
-                .claim("ci", ci)
+                .claim("userId", userId)
                 .subject("refreshToken")
                 .issuedAt(now)
                 .expiration(new Date(now.getTime() + REFRESH_EXP_MS))
