@@ -1,5 +1,5 @@
 package com.schedule.share.user.application.port.outbound;
 
-public interface LoginQueryPort<T> {
+public interface SocialLoginPort<T> {
     String getCi(T oauthCredentials);
 }

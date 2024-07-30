@@ -13,7 +13,7 @@ public class UserVO {
         String nickname,
         String method,
         String ci,
-        String image,
+        byte[] image,
         LocalDateTime registeredAt,
         LocalDateTime modifiedAt
     ) {}
@@ -24,6 +24,6 @@ public class UserVO {
         String nickname,
         String method,
         String ci,
-        String image
+        byte[] image
     ) {}
 }
