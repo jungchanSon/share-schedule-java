@@ -1,9 +1,8 @@
 package com.schedule.share.user.adaptor.inbound.api;
 
-import com.schedule.share.user.application.port.inbound.RefreshTokenCommand;
-import com.schedule.share.user.application.port.inbound.RefreshTokenQuery;
-import com.schedule.share.user.domain.RefreshToken;
-import com.schedule.share.user.domain.mapper.RefreshTokenMapper;
+import com.schedule.share.user.application.port.inbound.TokenCommand;
+import com.schedule.share.user.application.port.inbound.TokenQuery;
+import com.schedule.share.user.domain.mapper.TokenMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TokenApi {
 
-    private final RefreshTokenCommand refreshTokenCommand;
-    private final RefreshTokenQuery refreshTokenQuery;
+    private final TokenCommand tokenCommand;
+    private final TokenQuery tokenQuery;
 
-    private final RefreshTokenMapper refreshTokenMapper;
+    private final TokenMapper tokenMapper;
 
     @PostMapping("/refresh")
     public void accessRefresh(String refreshToken) {

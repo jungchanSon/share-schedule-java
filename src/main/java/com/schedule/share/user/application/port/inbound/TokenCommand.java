@@ -2,7 +2,7 @@ package com.schedule.share.user.application.port.inbound;
 
 import com.schedule.share.user.domain.RefreshToken;
 
-public interface RefreshTokenCommand {
+public interface TokenCommand {
 
-    RefreshToken update(long id, RefreshToken refreshToken);
+    RefreshToken updateRefreshToken(long id, RefreshToken refreshToken);
 }

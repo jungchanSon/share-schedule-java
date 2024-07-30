@@ -2,7 +2,7 @@ package com.schedule.share.user.application.service.user;
 
 import com.schedule.share.common.util.JwtUtil;
 import com.schedule.share.user.application.port.inbound.LoginServiceUseCase;
-import com.schedule.share.user.application.port.outbound.RefreshTokenCommandPort;
+import com.schedule.share.user.application.port.outbound.TokenCommandPort;
 import com.schedule.share.user.application.port.outbound.SocialLoginPort;
 import com.schedule.share.user.application.port.outbound.UserCommandPort;
 import com.schedule.share.user.application.port.outbound.UserQueryPort;
@@ -26,7 +26,7 @@ public class NaverLoginService implements LoginServiceUseCase<SocialLoginVO.Nave
     private final SocialLoginPort socialLoginPort;
     private final UserQueryPort userQueryPort;
     private final UserCommandPort userCommandPort;
-    private final RefreshTokenCommandPort refreshTokenCommandPort;
+    private final TokenCommandPort tokenCommandPort;
 
     private final SocialLoginMapper socialLoginMapper;
     private final UserMapper userMapper;
@@ -48,17 +48,17 @@ public class NaverLoginService implements LoginServiceUseCase<SocialLoginVO.Nave
         String accessToken = jwtUtil.generateAccessToken(userId, userSave.getNickname());
         String refreshToken = jwtUtil.generateRefreshToken(userId);
 
-        SocialLoginVO.Token token = SocialLoginVO.Token.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
-
         RefreshToken refresh = RefreshToken.builder()
                 .userId(userId)
                 .ci(ci)
                 .refreshToken(refreshToken)
                 .build();
-        refreshTokenCommandPort.create(refresh);
+        tokenCommandPort.createRefreshToken(refresh);
+
+        SocialLoginVO.Token token = SocialLoginVO.Token.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
 
         return token;
     }
@@ -85,7 +85,7 @@ public class NaverLoginService implements LoginServiceUseCase<SocialLoginVO.Nave
                     .refreshToken(refreshToken)
                     .build();
 
-            refreshTokenCommandPort.update(user.getId(), refresh);
+            tokenCommandPort.updateRefreshToken(user.getId(), refresh);
 
             return SocialLoginVO.Token.builder()
                     .accessToken(accessToken)

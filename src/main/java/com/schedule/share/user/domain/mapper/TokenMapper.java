@@ -5,8 +5,7 @@ import com.schedule.share.user.domain.RefreshToken;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface
-RefreshTokenMapper {
+public interface TokenMapper {
 
     RefreshToken refreshTokenEntityToDomain (RefreshTokenEntity refreshTokenEntity);
 

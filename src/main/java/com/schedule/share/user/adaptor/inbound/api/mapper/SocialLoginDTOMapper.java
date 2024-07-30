@@ -10,7 +10,5 @@ public interface SocialLoginDTOMapper {
 
     SocialLoginVO.NaverOauthCredential toVO(SocialLoginRequestDTO.NaverOauthCredential naverOauthCredential);
 
-    SocialLoginVO.UserInfo toVO(SocialLoginRequestDTO.UserInfo userInfo);
-
     SocialLoginResponseDTO.Response toResponse(SocialLoginVO.Token token);
 }
