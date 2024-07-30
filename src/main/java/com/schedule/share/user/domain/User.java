@@ -15,4 +15,9 @@ public class User {
     private String image;
     private LocalDateTime registeredAt;
     private LocalDateTime modifiedAt;
+
+    public void updateCiMethod(String ci, String method) {
+        this.ci = ci;
+        this.method = method;
+    }
 }
