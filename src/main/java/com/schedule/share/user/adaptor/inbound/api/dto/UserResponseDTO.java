@@ -12,7 +12,7 @@ public class UserResponseDTO {
         String nickname,
         String method,
         String ci,
-        String image,
+        byte[] image,
         LocalDateTime registeredAt,
         LocalDateTime modifiedAt
     ) {
