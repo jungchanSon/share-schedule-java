@@ -10,8 +10,8 @@ import com.schedule.share.user.application.service.user.vo.SocialLoginVO;
 import com.schedule.share.user.application.service.user.vo.UserVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +25,7 @@ public class SocialLoginApi {
     private final SocialLoginDTOMapper socialLoginDTOMapper;
     private final UserDTOMapper userDTOMapper;
 
-    @GetMapping(value = "/naver/sign")
+    @PostMapping(value = "/naver/user")
     public SocialLoginResponseDTO.Response signup(SocialLoginRequestDTO.NaverOauthCredential naverOauthCredential, UserRequestDTO.User userInfo) {
 
         SocialLoginVO.NaverOauthCredential naverOauthVO = socialLoginDTOMapper.toVO(naverOauthCredential);
