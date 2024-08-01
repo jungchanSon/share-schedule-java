@@ -11,7 +11,6 @@ import lombok.ToString;
 
 @Builder
 @Getter
-@ToString
 public class ResponseModel<T> {
     private T data;
     private String code;
