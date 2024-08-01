@@ -15,7 +15,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@Table(catalog = "schedule", name = "favorite_schedule")
+@Table(catalog = "user", name = "favorite_schedule")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor

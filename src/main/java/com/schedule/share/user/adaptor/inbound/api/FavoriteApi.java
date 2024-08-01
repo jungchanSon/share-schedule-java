@@ -1,5 +1,6 @@
 package com.schedule.share.user.adaptor.inbound.api;
 
+import com.schedule.share.common.model.ResponseModel;
 import com.schedule.share.user.adaptor.inbound.api.dto.FavoriteRequestDTO;
 import com.schedule.share.user.adaptor.inbound.api.dto.FavoriteResponseDTO;
 import com.schedule.share.user.adaptor.inbound.api.mapper.FavoriteDTOMapper;
@@ -33,24 +34,26 @@ public class FavoriteApi {
 
     @Operation(summary = "즐겨찾기 추가 API", description = "즐겨찾기를 추가한다.")
     @PostMapping
-    public void create(@RequestBody FavoriteRequestDTO.Favorite body) {
-        favoriteCommand.create(favoriteDTOMapper.toVo(body));
+    public ResponseModel<Long> create(@RequestBody FavoriteRequestDTO.Favorite body) {
+        long id = favoriteCommand.create(favoriteDTOMapper.toVo(body));
+        return ResponseModel.of(id);
     }
 
     @Operation(summary = "즐겨찾기 단일 조회 API", description = "즐겨찾기를 하나 조회한다.")
     @GetMapping("/{id}")
-    public FavoriteResponseDTO.Response get(@PathVariable long id) {
+    public ResponseModel<FavoriteResponseDTO.Response> get(@PathVariable long id) {
         FavoriteVO.Favorite favorite = favoriteQuery.get(id);
 
-        return favoriteDTOMapper.toResponseDTO(favorite);
+        return ResponseModel.of(favoriteDTOMapper.toResponseDTO(favorite));
     }
 
     @Operation(summary = "즐겨찾기 모두 조회 API", description = "즐겨찾기를 모두 조회한다.")
     @GetMapping
-    public List<FavoriteResponseDTO.Response> getList() {
+    public ResponseModel<List<FavoriteResponseDTO.Response>> getList() {
         List<FavoriteVO.Favorite> list = favoriteQuery.list();
+        List<FavoriteResponseDTO.Response> favoriteListResponse = list.stream().map(favoriteDTOMapper::toResponseDTO).toList();
 
-        return list.stream().map(favoriteDTOMapper::toResponseDTO).toList();
+        return ResponseModel.of(favoriteListResponse);
     }
 
     @Operation(summary = "즐겨찾기 삭제 API", description = "즐겨찾기를 삭제한다.")
