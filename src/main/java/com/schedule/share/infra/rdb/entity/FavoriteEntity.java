@@ -1,7 +1,5 @@
 package com.schedule.share.infra.rdb.entity;
 
-import com.schedule.share.user.domain.User;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -13,48 +11,35 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@Table(catalog = "user",  name = "user")
+@Table(catalog = "schedule", name = "favorite_schedule")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
-public class UserEntity {
+public class FavoriteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long recentCalendarId;
+    private long userId;
 
-    private String nickname;
+    private long scheduleId;
 
-    private String method;
+    private long calendarId;
 
-    private String ci;
+    private boolean isAllday;
 
-    @Nullable
-    private byte[] image;
+    private LocalDateTime scheduleStartDatetime;
 
-    @CreatedDate
-    private LocalDateTime registeredAt ;
+    private LocalDateTime scheduleEndDatetime;
 
     @CreatedDate
-    @LastModifiedDate
-    private LocalDateTime modifiedAt;
-
-    public void updateUserEntity(User user) {
-        this.nickname = user.getNickname();
-        this.image = user.getImage();
-
-        if (user.getRecentCalendarId() != 0) {
-            this.recentCalendarId = user.getRecentCalendarId();
-        }
-    }
+    private LocalDateTime createdAt;
 }

@@ -6,11 +6,9 @@ import com.schedule.share.user.domain.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper{
 
-    UserMapper INSTANCE =  Mappers.getMapper(UserMapper.class);
-    // id X
     User userVoSaveToDomain (UserVO.Save userVoSave);
 
     User userEntityToDomain (UserEntity user);

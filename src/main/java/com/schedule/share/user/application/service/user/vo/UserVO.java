@@ -10,6 +10,7 @@ public class UserVO {
     @Builder
     public record User(
         long id,
+        long recentCalendarId,
         String nickname,
         String method,
         String ci,
@@ -21,6 +22,7 @@ public class UserVO {
     // command 용
     @Builder
     public record Save (
+        long recentCalendarId,
         String nickname,
         String method,
         String ci,

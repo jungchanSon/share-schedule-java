@@ -7,12 +7,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserDTOMapper {
 
-    UserDTOMapper INSTANCE = Mappers.getMapper(UserDTOMapper.class);
-
     UserVO.Save toVO(UserRequestDTO.User userRequestDTO);
+
+    UserVO.Save toVO(UserRequestDTO.UserUpdate userUpdateDTO);
 
     UserResponseDTO.Response toResponseDTO(UserVO.User userVO);
 }
