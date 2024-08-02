@@ -56,7 +56,7 @@ public class ResponseModel<T> {
         return result ;
     }
 
-    public static ResponseModel<?> of(AbstractException exception) {
+    public static ResponseModel<Object> of(AbstractException exception) {
         return ResponseModel.builder()
                 .code(exception.getCode().getCode())
                 .message(exception.getMessage())

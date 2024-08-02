@@ -18,49 +18,42 @@ public class CommonExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value=Common400Exception.class)
-    ResponseModel<?> handler400(AbstractException exception){
+    ResponseModel<Object> handler400(AbstractException exception){
         return response(exception);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value= {Exception.class, RuntimeException.class})
-    ResponseModel<?> native400(RuntimeException exception){
+    ResponseModel<Object> native400(RuntimeException exception){
         exception.printStackTrace();
-        Common400Exception common400Exception;
 
-        if (exception.getMessage().isEmpty()) {
-            common400Exception = new Common400Exception(ResponseCode.NOT_FOUND, ResponseCode.NOT_FOUND.getMessage());
-        } else {
-            common400Exception = new Common400Exception(ResponseCode.NOT_FOUND, exception.getMessage());
-        }
-
-        return ResponseModel.of( common400Exception );
+        return ResponseModel.of( new Common400Exception(ResponseCode.NOT_FOUND, ResponseCode.NOT_FOUND.getMessage()));
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(value={Common401Exception.class})
-    ResponseModel<?> handler401(AbstractException exception){
+    ResponseModel<Object> handler401(AbstractException exception){
         return response(exception);
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(value= Common403Exception.class)
-    ResponseModel<?> handler403(AbstractException exception){
+    ResponseModel<Object> handler403(AbstractException exception){
         return response(exception);
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(value={Common404Exception.class})
-    ResponseModel<?> handler404(AbstractException exception){
+    ResponseModel<Object> handler404(AbstractException exception){
         return response(exception);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value={Common500Exception.class})
-    ResponseModel<?> handler500(AbstractException exception){
+    ResponseModel<Object> handler500(AbstractException exception){
         return response(exception);
     }
-    ResponseModel<?> response(AbstractException exception) {
+    ResponseModel<Object> response(AbstractException exception) {
         exception.printStackTrace();
 
         return ResponseModel.of(exception);
