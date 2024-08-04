@@ -17,7 +17,8 @@ public class User {
     private LocalDateTime registeredAt;
     private LocalDateTime modifiedAt;
 
-    public void updateRecentCalendarId(long recentCalendarId) {
-        this.recentCalendarId = recentCalendarId;
+    public void updateCiMethod(String ci, String method) {
+        this.ci = ci;
+        this.method = method;
     }
 }

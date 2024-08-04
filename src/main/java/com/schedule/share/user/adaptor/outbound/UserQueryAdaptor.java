@@ -31,4 +31,10 @@ public class UserQueryAdaptor implements UserQueryPort {
                 userMapper::userEntityToDomain
         ).toList();
     }
+
+
+    @Override
+    public User getByCi(String ci) {
+        return UserMapper.INSTANCE.userEntityToDomain(userRepository.findByCi(ci));
+    }
 }
