@@ -1,5 +1,6 @@
 package com.schedule.share.user.adaptor.inbound.api;
 
+import com.schedule.share.common.model.ResponseModel;
 import com.schedule.share.user.adaptor.inbound.api.dto.UserRequestDTO;
 import com.schedule.share.user.adaptor.inbound.api.dto.UserResponseDTO;
 import com.schedule.share.user.adaptor.inbound.api.mapper.UserDTOMapper;
@@ -35,29 +36,30 @@ public class UserApi {
     // 가입
     @Operation(summary = "유저 가입 API", description = "유저를 가입한다.")
     @PostMapping
-    public void create(@RequestBody UserRequestDTO.User body) {
+    public ResponseModel<Long> create(@RequestBody UserRequestDTO.User body) {
         UserVO.Save vo = userDTOMapper.toVO(body);
-        userCommand.create(vo);
+        long userId = userCommand.create(vo);
+
+        return ResponseModel.of(userId);
     }
 
     // 한명 조회
     @Operation(summary = "유저 단일 조회 API", description = "id로 유저 한명을 조회한다.")
     @GetMapping("/{id}")
-    public UserResponseDTO.Response get(@PathVariable long id) {
+    public ResponseModel<UserResponseDTO.Response> get(@PathVariable long id) {
         UserVO.User user = userQuery.get(id);
-
-        return userDTOMapper.toResponseDTO(user);
+        UserResponseDTO.Response responseDTO = userDTOMapper.toResponseDTO(user);
+        return ResponseModel.of(responseDTO, 10, 4, 7);
     }
 
     // 모두 조회
     @Operation(summary = "유저 모두 조회 API", description = "모든 유저를 조회한다.")
     @GetMapping
-    public List<UserResponseDTO.Response> getList() {
+    public ResponseModel<List<UserResponseDTO.Response>> getList() {
         List<UserVO.User> list = userQuery.list();
+        List<UserResponseDTO.Response> userListResponse = list.stream().map(userDTOMapper::toResponseDTO).toList();
 
-        return list.stream().map(
-                userDTOMapper::toResponseDTO
-        ).toList();
+        return ResponseModel.of(userListResponse);
     }
 
     // 수정
@@ -77,8 +79,8 @@ public class UserApi {
 
     @Operation(summary = "최근에 본 캘린더 조회 API", description = "최근에 본 캘린더를 조회한다.")
     @GetMapping("/{id}/recent_calendar")
-    public long getRecentCalendarId(@PathVariable long id) {
-        return  userQuery.getRecentCalendarId(id);
+    public ResponseModel<Long> getRecentCalendarId(@PathVariable long id) {
+        return  ResponseModel.of(userQuery.getRecentCalendarId(id));
     }
 
     @Operation(summary = "최근에 본 캘린더 Id 수정", description = "최근에 본 캘린더의 id를 변경한다.")

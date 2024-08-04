@@ -1,5 +1,6 @@
 package com.schedule.share.user.adaptor.outbound;
 
+import com.schedule.share.common.exception.Common404Exception;
 import com.schedule.share.infra.rdb.entity.FavoriteEntity;
 import com.schedule.share.infra.rdb.repository.FavoriteRepository;
 import com.schedule.share.user.application.port.outbound.FavoriteQueryPort;
@@ -19,7 +20,7 @@ public class FavoriteQueryAdaptor implements FavoriteQueryPort {
 
     @Override
     public Favorite get(long id) {
-        FavoriteEntity favoriteEntity = favoriteRepository.findById(id).orElseThrow();
+        FavoriteEntity favoriteEntity = favoriteRepository.findById(id).orElseThrow(Common404Exception::new);
 
         return favoriteMapper.favoriteEntityToDomain(favoriteEntity);
     }
