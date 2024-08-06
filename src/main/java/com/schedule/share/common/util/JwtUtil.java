@@ -1,4 +1,5 @@
 package com.schedule.share.common.util;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +40,12 @@ public class JwtUtil {
                 .expiration(new Date(now.getTime() + REFRESH_EXP_MS))
                 .signWith(getSigningKey())
                 .compact();
+    }
+
+    public long isExpire(String accessToken) {
+        Claims payload = Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(accessToken).getPayload();
+
+        return (long)((int) payload.get("userId"));
     }
 
     private SecretKey getSigningKey() {
