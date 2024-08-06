@@ -1,5 +1,7 @@
 package com.schedule.share.common.util;
+import com.schedule.share.common.exception.Common401Exception;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,7 +45,17 @@ public class JwtUtil {
     }
 
     public long isExpire(String accessToken) {
-        Claims payload = Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(accessToken).getPayload();
+        Claims payload;
+
+        try{
+            payload = Jwts.parser()
+                    .verifyWith(getSigningKey())
+                    .build()
+                    .parseSignedClaims(accessToken)
+                    .getPayload();
+        } catch (ExpiredJwtException e) {
+            throw new Common401Exception();
+        }
 
         return (long)((int) payload.get("userId"));
     }
