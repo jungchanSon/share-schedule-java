@@ -4,5 +4,5 @@ import com.schedule.share.user.domain.RefreshToken;
 
 public interface TokenCommand {
 
-    RefreshToken updateRefreshToken(long id, RefreshToken refreshToken);
+    RefreshToken updateRefreshToken(long id, String refreshToken);
 }

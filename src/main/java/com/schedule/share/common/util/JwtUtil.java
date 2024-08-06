@@ -17,12 +17,11 @@ public class JwtUtil {
     @Value("${jwt.REFRESH_EXP_MS}")
     private int REFRESH_EXP_MS;
 
-    public String generateAccessToken(long userId, String nickname) {
+    public String generateAccessToken(long userId) {
         Date now = new Date();
 
         return Jwts.builder()
                 .claim("userId", userId)
-                .claim("nickname", nickname)
                 .subject("accessToken")
                 .issuedAt(now)
                 .expiration(new Date(now.getTime() + ACCESS_EXP_MS))
