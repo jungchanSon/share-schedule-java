@@ -21,12 +21,12 @@ public class TokenService implements TokenServiceUseCase {
 
     @Override
     public TokenVO.AccessAndRefreshToken reissueAccessToken(String refreshToken) {
-        long userId = jwtUtil.isExpire(refreshToken);// 리프래시 만료면 에러 -> 에러처리
+        long userId = jwtUtil.getUserId(refreshToken);
 
         RefreshToken refreshTokenByUserId = tokenQueryPort.getRefreshTokenByUserId(userId);
 
         if (refreshToken.equals(refreshTokenByUserId.getRefreshToken())) {
-            //access + refresh ->
+
             String newAccessToken = jwtUtil.generateAccessToken(userId);
             String newRefreshToken = jwtUtil.generateRefreshToken(userId);
 

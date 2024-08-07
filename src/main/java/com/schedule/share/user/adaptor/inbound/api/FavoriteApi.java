@@ -39,7 +39,7 @@ public class FavoriteApi {
     @Operation(summary = "즐겨찾기 추가 API", description = "즐겨찾기를 추가한다.")
     @PostMapping
     public ResponseModel<Long> create(@RequestHeader("access_token") String accessToken, @RequestBody FavoriteRequestDTO.Favorite body) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         long id = favoriteCommand.create(favoriteDTOMapper.toVo(body));
         return ResponseModel.of(id);
@@ -48,7 +48,7 @@ public class FavoriteApi {
     @Operation(summary = "즐겨찾기 단일 조회 API", description = "즐겨찾기를 하나 조회한다.")
     @GetMapping("/{id}")
     public ResponseModel<FavoriteResponseDTO.Response> get(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         FavoriteVO.Favorite favorite = favoriteQuery.get(id);
 
@@ -58,7 +58,7 @@ public class FavoriteApi {
     @Operation(summary = "즐겨찾기 모두 조회 API", description = "즐겨찾기를 모두 조회한다.")
     @GetMapping
     public ResponseModel<List<FavoriteResponseDTO.Response>> getList(@RequestHeader("access_token") String accessToken) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         List<FavoriteVO.Favorite> list = favoriteQuery.list();
         List<FavoriteResponseDTO.Response> favoriteListResponse = list.stream().map(favoriteDTOMapper::toResponseDTO).toList();
@@ -69,7 +69,7 @@ public class FavoriteApi {
     @Operation(summary = "즐겨찾기 삭제 API", description = "즐겨찾기를 삭제한다.")
     @DeleteMapping("/{id}")
     public void delete(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         favoriteCommand.delete(id);
     }
@@ -77,7 +77,7 @@ public class FavoriteApi {
     @Operation(summary = "즐겨찾기들 삭제 API", description = "즐겨찾기들을 삭제한다.")
     @DeleteMapping
     public void bulkDelete(@RequestHeader("access_token") String accessToken, @RequestBody FavoriteRequestDTO.BulkDelete bulkDelete) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         favoriteCommand.delete(bulkDelete.list());
     }

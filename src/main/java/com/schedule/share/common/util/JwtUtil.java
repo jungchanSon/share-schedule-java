@@ -44,7 +44,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public long isExpire(String accessToken) {
+    public long getUserId (String accessToken) {
         Claims payload;
 
         try{
@@ -60,8 +60,19 @@ public class JwtUtil {
         return (long)((int) payload.get("userId"));
     }
 
+    public void checkToken(String accessToken) {
+        try{
+            Jwts.parser()
+                    .verifyWith(getSigningKey())
+                    .build()
+                    .parseSignedClaims(accessToken)
+                    .getPayload();
+        } catch (ExpiredJwtException e) {
+            throw new Common401Exception();
+        }
+    }
+
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
-
 }

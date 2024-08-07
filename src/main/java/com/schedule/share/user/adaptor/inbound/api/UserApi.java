@@ -33,7 +33,6 @@ public class UserApi {
     private final UserQuery userQuery;
     private final UserCommand userCommand;
     private final UserDTOMapper userDTOMapper;
-    private final UserService userService;
 
     private final JwtUtil jwtUtil;
 
@@ -41,7 +40,7 @@ public class UserApi {
     @Operation(summary = "유저 가입 API", description = "유저를 가입한다.")
     @PostMapping
     public ResponseModel<Long> create(@RequestHeader("access_token") String accessToken, @RequestBody UserRequestDTO.User body) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         UserVO.Save vo = userDTOMapper.toVO(body);
         long userId = userCommand.create(vo);
@@ -53,7 +52,7 @@ public class UserApi {
     @Operation(summary = "유저 단일 조회 API", description = "id로 유저 한명을 조회한다.")
     @GetMapping("/{id}")
     public ResponseModel<UserResponseDTO.Response> get(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         UserVO.User user = userQuery.get(id);
         UserResponseDTO.Response responseDTO = userDTOMapper.toResponseDTO(user);
@@ -64,7 +63,7 @@ public class UserApi {
     @Operation(summary = "유저 모두 조회 API", description = "모든 유저를 조회한다.")
     @GetMapping
     public ResponseModel<List<UserResponseDTO.Response>> getList(@RequestHeader("access_token") String accessToken) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         List<UserVO.User> list = userQuery.list();
         List<UserResponseDTO.Response> userListResponse = list.stream().map(userDTOMapper::toResponseDTO).toList();
@@ -76,7 +75,7 @@ public class UserApi {
     @Operation(summary = "유저 수정 API", description = "유저 정보를 수정한다.")
     @PutMapping("/{id}")
     public void update(@RequestHeader("access_token") String accessToken, @PathVariable long id, @RequestBody UserRequestDTO.UserUpdate body) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         UserVO.Save vo = userDTOMapper.toVO(body);
         userCommand.update(id, vo);
@@ -86,7 +85,7 @@ public class UserApi {
     @Operation(summary = "유저 탈퇴 API", description = "유저를 탈퇴시킨다.")
     @DeleteMapping("/{id}")
     public void delete(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         userCommand.delete(id);
     }
@@ -94,7 +93,7 @@ public class UserApi {
     @Operation(summary = "최근에 본 캘린더 조회 API", description = "최근에 본 캘린더를 조회한다.")
     @GetMapping("/{id}/recent_calendar")
     public ResponseModel<Long> getRecentCalendarId(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         return  ResponseModel.of(userQuery.getRecentCalendarId(id));
     }
@@ -102,7 +101,7 @@ public class UserApi {
     @Operation(summary = "최근에 본 캘린더 Id 수정", description = "최근에 본 캘린더의 id를 변경한다.")
     @PutMapping("/{id}/recent_calendar")
     public void updateRecentCalendarId(@RequestHeader("access_token") String accessToken, @PathVariable long id, @RequestBody UserRequestDTO.RecentCalendar body) {
-        jwtUtil.isExpire(accessToken);
+        jwtUtil.checkToken(accessToken);
 
         userCommand.updateCalendarId(id, body.recentCalendarId());
     }

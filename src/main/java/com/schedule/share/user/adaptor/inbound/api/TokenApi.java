@@ -24,13 +24,13 @@ public class TokenApi {
 
     private final TokenDTOMapper tokenDTOMapper;
 
-
     @PostMapping("/access-token")
     public TokenResponseDTO.AccessAndRefreshToken reissueAccessToken(@RequestHeader("refresh_token") String refreshToken) {
 
         TokenResponseDTO.AccessAndRefreshToken responseDTO = tokenDTOMapper.toResponseDTO(
                 tokenServiceUseCase.reissueAccessToken(refreshToken)
         );
+
         return responseDTO;
     }
 }
