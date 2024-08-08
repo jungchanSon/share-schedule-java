@@ -13,5 +13,4 @@ public class ShareScheduleApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ShareScheduleApplication.class, args);
 	}
-
 }

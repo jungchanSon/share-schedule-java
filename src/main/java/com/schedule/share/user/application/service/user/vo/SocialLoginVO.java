@@ -48,7 +48,8 @@ public class SocialLoginVO {
     @Builder
     public record Token(
             String accessToken,
-            String refreshToken
+            String refreshToken,
+            UserVO.User user
     ) {
     }
 }

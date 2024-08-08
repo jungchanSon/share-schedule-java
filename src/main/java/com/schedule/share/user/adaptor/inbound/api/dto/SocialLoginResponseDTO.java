@@ -7,7 +7,8 @@ public class SocialLoginResponseDTO {
     @Builder
     public record Response(
             String accessToken,
-            String refreshToken
+            String refreshToken,
+            UserResponseDTO.Response user
     ) {
     }
 }
