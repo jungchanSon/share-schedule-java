@@ -78,14 +78,6 @@ public class UserApi {
         userCommand.delete(userId);
     }
 
-    @Operation(summary = "최근에 본 캘린더 조회 API", description = "최근에 본 캘린더를 조회한다.")
-    @GetMapping("/{id}/recent_calendar")
-    public ResponseModel<Long> getRecentCalendarId(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
-        jwtUtil.checkToken(accessToken);
-
-        return  ResponseModel.of(userQuery.getRecentCalendarId(id));
-    }
-
     @Operation(summary = "최근에 본 캘린더 Id 수정", description = "최근에 본 캘린더의 id를 변경한다.")
     @PutMapping("/recent_calendar")
     public void updateRecentCalendarId(@RequestHeader("access_token") String accessToken, @RequestBody UserRequestDTO.RecentCalendar body) {
