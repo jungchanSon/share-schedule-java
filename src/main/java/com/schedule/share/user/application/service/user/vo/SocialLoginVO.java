@@ -1,5 +1,6 @@
 package com.schedule.share.user.application.service.user.vo;
 
+import com.schedule.share.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -49,7 +50,7 @@ public class SocialLoginVO {
     public record Token(
             String accessToken,
             String refreshToken,
-            UserVO.User user
+            User user
     ) {
     }
 }

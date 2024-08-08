@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -44,7 +43,7 @@ public class UserApi {
         UserResponseDTO.Response responseDTO = userDTOMapper.toResponseDTO(user);
 
         //Todo: 이거 테스트하고 원복하기
-        return ResponseModel.of(responseDTO, 10, 4, 7);
+        return ResponseModel.of(responseDTO);
     }
 
     // 모두 조회
@@ -62,11 +61,11 @@ public class UserApi {
     // 수정
     @Operation(summary = "유저 수정 API", description = "유저 정보를 수정한다.")
     @PutMapping
-    public void update(@RequestHeader("access_token") String accessToken, @PathVariable long id, @RequestBody UserRequestDTO.UserUpdate body) {
-        jwtUtil.checkToken(accessToken);
+    public void update(@RequestHeader("access_token") String accessToken, @RequestBody UserRequestDTO.UserUpdate body) {
+        long userId = jwtUtil.getUserId(accessToken);
 
         UserVO.Save vo = userDTOMapper.toVO(body);
-        userCommand.update(id, vo);
+        userCommand.update(userId, vo);
     }
 
     // 탈퇴
