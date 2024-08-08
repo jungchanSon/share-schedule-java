@@ -42,7 +42,6 @@ public class UserApi {
         UserVO.User user = userQuery.get(userId);
         UserResponseDTO.Response responseDTO = userDTOMapper.toResponseDTO(user);
 
-        //Todo: 이거 테스트하고 원복하기
         return ResponseModel.of(responseDTO);
     }
 
