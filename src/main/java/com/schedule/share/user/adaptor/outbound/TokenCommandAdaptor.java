@@ -1,5 +1,6 @@
 package com.schedule.share.user.adaptor.outbound;
 
+import com.schedule.share.common.exception.Common404Exception;
 import com.schedule.share.infra.rdb.entity.RefreshTokenEntity;
 import com.schedule.share.infra.rdb.repository.RefreshTokenRepository;
 import com.schedule.share.user.application.port.outbound.TokenCommandPort;
@@ -25,8 +26,8 @@ public class TokenCommandAdaptor implements TokenCommandPort {
     }
 
     @Override
-    public RefreshToken updateRefreshToken(long userId, RefreshToken refreshToken) {
-        RefreshTokenEntity refreshTokenEntity = refreshTokenRepository.findByUserId(userId);
+    public RefreshToken updateRefreshToken(long userId, String refreshToken) {
+        RefreshTokenEntity refreshTokenEntity = refreshTokenRepository.findByUserId(userId).orElseThrow(Common404Exception::new);
 
         refreshTokenEntity.updateTokenValue(refreshToken);
 

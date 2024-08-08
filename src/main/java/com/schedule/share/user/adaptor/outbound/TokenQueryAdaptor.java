@@ -16,10 +16,10 @@ public class TokenQueryAdaptor implements TokenQueryPort {
     private final TokenMapper tokenMapper;
 
     @Override
-    public RefreshToken getRefreshToken(long id) {
+    public RefreshToken getRefreshTokenByUserId(long userId) {
 
-        RefreshTokenEntity refreshTokenEntity = refreshTokenRepository.findById(id).orElseThrow();
+        RefreshTokenEntity refreshTokenByUserId = refreshTokenRepository.findByUserId(userId).orElseThrow();
 
-        return tokenMapper.refreshTokenEntityToDomain(refreshTokenEntity);
+        return tokenMapper.refreshTokenEntityToDomain(refreshTokenByUserId);
     }
 }

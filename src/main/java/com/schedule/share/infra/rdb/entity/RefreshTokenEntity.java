@@ -1,6 +1,5 @@
 package com.schedule.share.infra.rdb.entity;
 
-import com.schedule.share.user.domain.RefreshToken;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -38,7 +37,7 @@ public class RefreshTokenEntity {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    public void updateTokenValue(RefreshToken refreshToken) {
-        this.refreshToken = refreshToken.getRefreshToken();
+    public void updateTokenValue(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }

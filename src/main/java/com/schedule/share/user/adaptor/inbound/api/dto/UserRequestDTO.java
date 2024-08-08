@@ -10,7 +10,6 @@ public class UserRequestDTO {
     public record User(
             String nickname,
             String method,
-            String ci,
             byte[] image
     ) {
     }

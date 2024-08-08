@@ -1,6 +1,7 @@
 package com.schedule.share.user.adaptor.inbound.api;
 
 import com.schedule.share.common.model.ResponseModel;
+import com.schedule.share.common.util.JwtUtil;
 import com.schedule.share.user.adaptor.inbound.api.dto.FavoriteRequestDTO;
 import com.schedule.share.user.adaptor.inbound.api.dto.FavoriteResponseDTO;
 import com.schedule.share.user.adaptor.inbound.api.mapper.FavoriteDTOMapper;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,16 +34,22 @@ public class FavoriteApi {
     private final FavoriteDTOMapper favoriteDTOMapper;
     private final FavoriteService favoriteService;
 
+    private final JwtUtil jwtUtil;
+
     @Operation(summary = "즐겨찾기 추가 API", description = "즐겨찾기를 추가한다.")
     @PostMapping
-    public ResponseModel<Long> create(@RequestBody FavoriteRequestDTO.Favorite body) {
+    public ResponseModel<Long> create(@RequestHeader("access_token") String accessToken, @RequestBody FavoriteRequestDTO.Favorite body) {
+        jwtUtil.checkToken(accessToken);
+
         long id = favoriteCommand.create(favoriteDTOMapper.toVo(body));
         return ResponseModel.of(id);
     }
 
     @Operation(summary = "즐겨찾기 단일 조회 API", description = "즐겨찾기를 하나 조회한다.")
     @GetMapping("/{id}")
-    public ResponseModel<FavoriteResponseDTO.Response> get(@PathVariable long id) {
+    public ResponseModel<FavoriteResponseDTO.Response> get(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
+        jwtUtil.checkToken(accessToken);
+
         FavoriteVO.Favorite favorite = favoriteQuery.get(id);
 
         return ResponseModel.of(favoriteDTOMapper.toResponseDTO(favorite));
@@ -49,7 +57,9 @@ public class FavoriteApi {
 
     @Operation(summary = "즐겨찾기 모두 조회 API", description = "즐겨찾기를 모두 조회한다.")
     @GetMapping
-    public ResponseModel<List<FavoriteResponseDTO.Response>> getList() {
+    public ResponseModel<List<FavoriteResponseDTO.Response>> getList(@RequestHeader("access_token") String accessToken) {
+        jwtUtil.checkToken(accessToken);
+
         List<FavoriteVO.Favorite> list = favoriteQuery.list();
         List<FavoriteResponseDTO.Response> favoriteListResponse = list.stream().map(favoriteDTOMapper::toResponseDTO).toList();
 
@@ -58,13 +68,17 @@ public class FavoriteApi {
 
     @Operation(summary = "즐겨찾기 삭제 API", description = "즐겨찾기를 삭제한다.")
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
+    public void delete(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
+        jwtUtil.checkToken(accessToken);
+
         favoriteCommand.delete(id);
     }
 
     @Operation(summary = "즐겨찾기들 삭제 API", description = "즐겨찾기들을 삭제한다.")
     @DeleteMapping
-    public void bulkDelete(@RequestBody FavoriteRequestDTO.BulkDelete bulkDelete) {
+    public void bulkDelete(@RequestHeader("access_token") String accessToken, @RequestBody FavoriteRequestDTO.BulkDelete bulkDelete) {
+        jwtUtil.checkToken(accessToken);
+
         favoriteCommand.delete(bulkDelete.list());
     }
 }

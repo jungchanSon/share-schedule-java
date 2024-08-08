@@ -35,6 +35,6 @@ public class UserQueryAdaptor implements UserQueryPort {
 
     @Override
     public User getByCi(String ci) {
-        return UserMapper.INSTANCE.userEntityToDomain(userRepository.findByCi(ci));
+        return userMapper.userEntityToDomain(userRepository.findByCi(ci));
     }
 }

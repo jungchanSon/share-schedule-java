@@ -13,7 +13,7 @@ public class TokenWriter implements TokenCommand {
     private final TokenCommandPort tokenCommandPort;
 
     @Override
-    public RefreshToken updateRefreshToken(long id, RefreshToken refreshToken) {
+    public RefreshToken updateRefreshToken(long id, String refreshToken) {
 
         tokenCommandPort.updateRefreshToken(id, refreshToken);
 

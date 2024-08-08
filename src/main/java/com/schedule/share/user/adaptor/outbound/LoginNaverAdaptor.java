@@ -57,7 +57,6 @@ public class LoginNaverAdaptor implements SocialLoginPort<NaverLoginCredential> 
                                 .with("state", accessTokenMaterial.getState()))
                 .header("Content-Type", "application/s-www-form-urlencoded;charset=utf-8")
                 .retrieve()
-
                 .bodyToMono(SocialLoginVO.NaverAccessToken.class)
                 .onErrorMap(ReadTimeoutException.class, e ->
                         new HttpTimeoutException("[Time Out 예외] 네이버 AccessToken"));
