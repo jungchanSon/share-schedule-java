@@ -1,5 +1,6 @@
 package com.schedule.share.user.adaptor.outbound;
 
+import com.schedule.share.common.exception.Common401Exception;
 import com.schedule.share.user.application.port.outbound.SocialLoginPort;
 import com.schedule.share.user.application.service.user.vo.SocialLoginVO;
 import com.schedule.share.user.domain.NaverLoginCredential;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
 import java.net.http.HttpTimeoutException;
@@ -41,7 +43,13 @@ public class LoginNaverAdaptor implements SocialLoginPort<NaverLoginCredential> 
                 .onErrorMap(ReadTimeoutException.class, e ->
                         new HttpTimeoutException("[Time Out 예외] 네이버 CI"));
 
-        SocialLoginVO.NaverCredential naverCredential = authorization.block();
+        SocialLoginVO.NaverCredential naverCredential;
+
+        try {
+            naverCredential = authorization.block();
+        } catch (WebClientResponseException.Unauthorized e) {
+            throw new Common401Exception();
+        }
 
         return naverCredential.response().id();
     }
