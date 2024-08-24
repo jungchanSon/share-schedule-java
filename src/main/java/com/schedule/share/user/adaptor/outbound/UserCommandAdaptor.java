@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Transactional
-public class UserCommandAdapter implements UserCommandPort {
+public class UserCommandAdaptor implements UserCommandPort {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;

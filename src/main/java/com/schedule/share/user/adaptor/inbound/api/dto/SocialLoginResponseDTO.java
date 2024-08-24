@@ -5,10 +5,10 @@ import lombok.Builder;
 public class SocialLoginResponseDTO {
 
     @Builder
-    public record Response(
+    public record Response<T>(
             String accessToken,
             String refreshToken,
-            UserResponseDTO.Response user
+            T user
     ) {
     }
 }

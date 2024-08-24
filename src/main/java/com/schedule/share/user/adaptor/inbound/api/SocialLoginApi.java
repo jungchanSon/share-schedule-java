@@ -3,6 +3,7 @@ package com.schedule.share.user.adaptor.inbound.api;
 import com.schedule.share.user.adaptor.inbound.api.dto.SocialLoginRequestDTO;
 import com.schedule.share.user.adaptor.inbound.api.dto.SocialLoginResponseDTO;
 import com.schedule.share.user.adaptor.inbound.api.dto.UserRequestDTO;
+import com.schedule.share.user.adaptor.inbound.api.dto.UserResponseDTO;
 import com.schedule.share.user.adaptor.inbound.api.mapper.SocialLoginDTOMapper;
 import com.schedule.share.user.adaptor.inbound.api.mapper.UserDTOMapper;
 import com.schedule.share.user.application.port.inbound.LoginServiceUseCase;
@@ -10,7 +11,7 @@ import com.schedule.share.user.application.service.user.vo.SocialLoginVO;
 import com.schedule.share.user.application.service.user.vo.UserVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class SocialLoginApi {
     private final UserDTOMapper userDTOMapper;
 
     @PostMapping(value = "/naver/user")
-    public SocialLoginResponseDTO.Response signup(SocialLoginRequestDTO.NaverOauthCredential naverOauthCredential, UserRequestDTO.User userInfo) {
+    public SocialLoginResponseDTO.Response<UserResponseDTO.Response> signup(SocialLoginRequestDTO.NaverOauthCredential naverOauthCredential, UserRequestDTO.User userInfo) {
 
         SocialLoginVO.NaverOauthCredential naverOauthVO = socialLoginDTOMapper.toVO(naverOauthCredential);
 
@@ -35,9 +36,8 @@ public class SocialLoginApi {
         return socialLoginDTOMapper.toResponse(token);
     }
 
-    @GetMapping(value = "/naver")
-    public SocialLoginResponseDTO.Response naverLogin(SocialLoginRequestDTO.NaverOauthCredential naverOauthCredential) {
-
+    @PostMapping(value = "/naver")
+    public SocialLoginResponseDTO.Response<UserResponseDTO.Response> naverLogin(SocialLoginRequestDTO.NaverOauthCredential naverOauthCredential) {
         SocialLoginVO.Token token = loginServiceUseCase.login(socialLoginDTOMapper.toVO(naverOauthCredential));
 
         return socialLoginDTOMapper.toResponse(token);

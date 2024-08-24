@@ -60,7 +60,6 @@ public class LoginNaverAdaptor implements SocialLoginPort<NaverLoginCredential> 
                 .bodyToMono(SocialLoginVO.NaverAccessToken.class)
                 .onErrorMap(ReadTimeoutException.class, e ->
                         new HttpTimeoutException("[Time Out 예외] 네이버 AccessToken"));
-        ;
 
         return accessTokenMono.block();
     }

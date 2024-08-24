@@ -24,7 +24,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class NaverLoginService implements LoginServiceUseCase<SocialLoginVO.NaverOauthCredential, UserVO.Save> {
 
-    private final SocialLoginPort socialLoginPort;
+    private final SocialLoginPort<NaverLoginCredential> socialLoginPort;
     private final UserQueryPort userQueryPort;
     private final UserCommandPort userCommandPort;
     private final TokenCommandPort tokenCommandPort;
@@ -59,6 +59,7 @@ public class NaverLoginService implements LoginServiceUseCase<SocialLoginVO.Nave
         return SocialLoginVO.Token.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .user(userSave)
                 .build();
     }
 
@@ -83,6 +84,7 @@ public class NaverLoginService implements LoginServiceUseCase<SocialLoginVO.Nave
             return SocialLoginVO.Token.builder()
                     .accessToken(accessToken)
                     .refreshToken(refreshToken)
+                    .user(user)
                     .build();
         }
     }
