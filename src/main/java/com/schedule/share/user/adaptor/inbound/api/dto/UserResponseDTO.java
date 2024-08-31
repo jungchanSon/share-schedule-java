@@ -12,7 +12,6 @@ public class UserResponseDTO {
         long recentCalendarId,
         String nickname,
         String method,
-        String ci,
         byte[] image,
         LocalDateTime registeredAt,
         LocalDateTime modifiedAt
