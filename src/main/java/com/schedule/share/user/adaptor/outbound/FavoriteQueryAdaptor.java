@@ -27,7 +27,15 @@ public class FavoriteQueryAdaptor implements FavoriteQueryPort {
 
     @Override
     public List<Favorite> list() {
-        return favoriteRepository.findAll().stream().map(
+        return List.of();
+    }
+
+    @Override
+    public List<Favorite> list(long userId) {
+        favoriteRepository.findAllByUserId(userId).stream().map(
+                favoriteMapper::favoriteEntityToDomain
+        ).toList();
+        return favoriteRepository.findAllByUserId(userId).stream().map(
                 favoriteMapper::favoriteEntityToDomain
         ).toList();
     }

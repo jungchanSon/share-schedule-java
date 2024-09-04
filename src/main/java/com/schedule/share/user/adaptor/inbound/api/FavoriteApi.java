@@ -58,9 +58,9 @@ public class FavoriteApi {
     @Operation(summary = "즐겨찾기 모두 조회 API", description = "즐겨찾기를 모두 조회한다.")
     @GetMapping
     public ResponseModel<List<FavoriteResponseDTO.Response>> getList(@RequestHeader("access_token") String accessToken) {
-        jwtUtil.checkToken(accessToken);
+        long userId = jwtUtil.getUserId(accessToken);
 
-        List<FavoriteVO.Favorite> list = favoriteQuery.list();
+        List<FavoriteVO.Favorite> list = favoriteQuery.list(userId);
         List<FavoriteResponseDTO.Response> favoriteListResponse = list.stream().map(favoriteDTOMapper::toResponseDTO).toList();
 
         return ResponseModel.of(favoriteListResponse);
