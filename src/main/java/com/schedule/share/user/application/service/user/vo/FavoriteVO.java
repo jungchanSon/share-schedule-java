@@ -26,5 +26,9 @@ public class FavoriteVO {
             boolean isAllday,
             LocalDateTime scheduleStartDatetime,
             LocalDateTime scheduleEndDatetime
-    ) {}
+    ) {
+        public save of(long userId) {
+            return new save(userId, scheduleId(), calendarId(), isAllday(), scheduleStartDatetime(), scheduleStartDatetime());
+        }
+    }
 }

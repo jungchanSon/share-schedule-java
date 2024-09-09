@@ -6,7 +6,6 @@ import java.util.List;
 public class FavoriteRequestDTO {
 
     public record Favorite(
-            long userId,
             long scheduleId,
             long calendarId,
             boolean isAllday,

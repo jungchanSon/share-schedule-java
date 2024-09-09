@@ -39,9 +39,9 @@ public class FavoriteApi {
     @Operation(summary = "즐겨찾기 추가 API", description = "즐겨찾기를 추가한다.")
     @PostMapping
     public ResponseModel<Long> create(@RequestHeader("access_token") String accessToken, @RequestBody FavoriteRequestDTO.Favorite body) {
-        jwtUtil.checkToken(accessToken);
+        long userId = jwtUtil.getUserId(accessToken);
 
-        long id = favoriteCommand.create(favoriteDTOMapper.toVo(body));
+        long id = favoriteCommand.create(userId, favoriteDTOMapper.toVo(body));
         return ResponseModel.of(id);
     }
 
@@ -69,16 +69,16 @@ public class FavoriteApi {
     @Operation(summary = "즐겨찾기 삭제 API", description = "즐겨찾기를 삭제한다.")
     @DeleteMapping("/{id}")
     public void delete(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
-        jwtUtil.checkToken(accessToken);
+        long userId = jwtUtil.getUserId(accessToken);
 
-        favoriteCommand.delete(id);
+        favoriteCommand.delete(userId, id);
     }
 
     @Operation(summary = "즐겨찾기들 삭제 API", description = "즐겨찾기들을 삭제한다.")
     @DeleteMapping
     public void bulkDelete(@RequestHeader("access_token") String accessToken, @RequestBody FavoriteRequestDTO.BulkDelete bulkDelete) {
-        jwtUtil.checkToken(accessToken);
+        long userId = jwtUtil.getUserId(accessToken);
 
-        favoriteCommand.delete(bulkDelete.list());
+        favoriteCommand.delete(userId, bulkDelete.list());
     }
 }

@@ -20,19 +20,18 @@ public class FavoriteCommandAdaptor implements FavoriteCommandPort {
     private final FavoriteMapper favoriteMapper;
 
     @Override
-    public long create(Favorite param) {
+    public long create(long userId, Favorite param) {
         FavoriteEntity favoriteEntity = favoriteMapper.favoriteToEntity(param);
-
         return favoriteRepository.save(favoriteEntity).getId();
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(long userId, long id) {
         favoriteRepository.deleteById(id);
     }
 
     @Override
-    public void delete(List<Long> ids) {
+    public void delete(long userId, List<Long> ids) {
         favoriteRepository.deleteAllById(ids);
     }
 

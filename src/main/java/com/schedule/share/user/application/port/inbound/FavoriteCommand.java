@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface FavoriteCommand {
 
-    long create(FavoriteVO.save param);
+    long create(long userId, FavoriteVO.save param);
 
-    void delete(long id);
+    void delete(long userId, long id);
 
-    void delete(List<Long> ids);
+    void delete(long userId, List<Long> ids);
 }
