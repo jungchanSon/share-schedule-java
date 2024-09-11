@@ -21,4 +21,8 @@ public class User {
         this.ci = ci;
         this.method = method;
     }
+
+    public void updateRecentCalendarId(long recentCalendarId) {
+        this.recentCalendarId = recentCalendarId;
+    }
 }

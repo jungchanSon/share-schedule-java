@@ -1,6 +1,5 @@
 package com.schedule.share.user.application.service.user;
 
-import com.schedule.share.infra.rdb.entity.FavoriteEntity;
 import com.schedule.share.user.application.port.inbound.FavoriteQuery;
 import com.schedule.share.user.application.port.outbound.FavoriteQueryPort;
 import com.schedule.share.user.application.service.user.vo.FavoriteVO;
@@ -27,7 +26,12 @@ public class FavoriteReader implements FavoriteQuery {
 
     @Override
     public List<FavoriteVO.Favorite> list() {
-        List<Favorite> list = favoriteQueryPort.list();
+        return null;
+    }
+
+    @Override
+    public List<FavoriteVO.Favorite> list(long userId) {
+        List<Favorite> list = favoriteQueryPort.list(userId);
 
         return list.stream().map(favoriteMapper::favoriteToVO).toList();
     }

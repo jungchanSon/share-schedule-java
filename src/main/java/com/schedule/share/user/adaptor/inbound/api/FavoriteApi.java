@@ -1,6 +1,7 @@
 package com.schedule.share.user.adaptor.inbound.api;
 
 import com.schedule.share.common.model.ResponseModel;
+import com.schedule.share.common.util.JwtUtil;
 import com.schedule.share.user.adaptor.inbound.api.dto.FavoriteRequestDTO;
 import com.schedule.share.user.adaptor.inbound.api.dto.FavoriteResponseDTO;
 import com.schedule.share.user.adaptor.inbound.api.mapper.FavoriteDTOMapper;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,16 +34,22 @@ public class FavoriteApi {
     private final FavoriteDTOMapper favoriteDTOMapper;
     private final FavoriteService favoriteService;
 
+    private final JwtUtil jwtUtil;
+
     @Operation(summary = "즐겨찾기 추가 API", description = "즐겨찾기를 추가한다.")
     @PostMapping
-    public ResponseModel<Long> create(@RequestBody FavoriteRequestDTO.Favorite body) {
-        long id = favoriteCommand.create(favoriteDTOMapper.toVo(body));
+    public ResponseModel<Long> create(@RequestHeader("access_token") String accessToken, @RequestBody FavoriteRequestDTO.Favorite body) {
+        long userId = jwtUtil.getUserId(accessToken);
+
+        long id = favoriteCommand.create(userId, favoriteDTOMapper.toVo(body));
         return ResponseModel.of(id);
     }
 
     @Operation(summary = "즐겨찾기 단일 조회 API", description = "즐겨찾기를 하나 조회한다.")
     @GetMapping("/{id}")
-    public ResponseModel<FavoriteResponseDTO.Response> get(@PathVariable long id) {
+    public ResponseModel<FavoriteResponseDTO.Response> get(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
+        jwtUtil.checkToken(accessToken);
+
         FavoriteVO.Favorite favorite = favoriteQuery.get(id);
 
         return ResponseModel.of(favoriteDTOMapper.toResponseDTO(favorite));
@@ -49,8 +57,10 @@ public class FavoriteApi {
 
     @Operation(summary = "즐겨찾기 모두 조회 API", description = "즐겨찾기를 모두 조회한다.")
     @GetMapping
-    public ResponseModel<List<FavoriteResponseDTO.Response>> getList() {
-        List<FavoriteVO.Favorite> list = favoriteQuery.list();
+    public ResponseModel<List<FavoriteResponseDTO.Response>> getList(@RequestHeader("access_token") String accessToken) {
+        long userId = jwtUtil.getUserId(accessToken);
+
+        List<FavoriteVO.Favorite> list = favoriteQuery.list(userId);
         List<FavoriteResponseDTO.Response> favoriteListResponse = list.stream().map(favoriteDTOMapper::toResponseDTO).toList();
 
         return ResponseModel.of(favoriteListResponse);
@@ -58,13 +68,17 @@ public class FavoriteApi {
 
     @Operation(summary = "즐겨찾기 삭제 API", description = "즐겨찾기를 삭제한다.")
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
-        favoriteCommand.delete(id);
+    public void delete(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
+        long userId = jwtUtil.getUserId(accessToken);
+
+        favoriteCommand.delete(userId, id);
     }
 
     @Operation(summary = "즐겨찾기들 삭제 API", description = "즐겨찾기들을 삭제한다.")
     @DeleteMapping
-    public void bulkDelete(@RequestBody FavoriteRequestDTO.BulkDelete bulkDelete) {
-        favoriteCommand.delete(bulkDelete.list());
+    public void bulkDelete(@RequestHeader("access_token") String accessToken, @RequestBody FavoriteRequestDTO.BulkDelete bulkDelete) {
+        long userId = jwtUtil.getUserId(accessToken);
+
+        favoriteCommand.delete(userId, bulkDelete.list());
     }
 }

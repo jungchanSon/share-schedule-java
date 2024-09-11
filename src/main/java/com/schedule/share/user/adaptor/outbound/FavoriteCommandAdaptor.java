@@ -22,7 +22,6 @@ public class FavoriteCommandAdaptor implements FavoriteCommandPort {
     @Override
     public long create(Favorite param) {
         FavoriteEntity favoriteEntity = favoriteMapper.favoriteToEntity(param);
-
         return favoriteRepository.save(favoriteEntity).getId();
     }
 
