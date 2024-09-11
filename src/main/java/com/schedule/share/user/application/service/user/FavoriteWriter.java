@@ -17,7 +17,6 @@ import java.util.List;
 public class FavoriteWriter implements FavoriteCommand {
 
     private final FavoriteCommandPort favoriteCommandPort;
-    private final FavoriteQueryPort favoriteQueryPort;
     private final FavoriteMapper favoriteMapper;
     private final FavoriteReader favoriteReader;
 
@@ -25,23 +24,23 @@ public class FavoriteWriter implements FavoriteCommand {
     public long create(long userId, FavoriteVO.save param) {
         FavoriteVO.save favoriteWithUserId = param.of(userId);
 
-        return favoriteCommandPort.create(userId, favoriteMapper.favoriteVoSaveToDomain(favoriteWithUserId));
+        return favoriteCommandPort.create(favoriteMapper.favoriteVoSaveToDomain(favoriteWithUserId));
     }
 
     @Override
     public void delete(long userId, long id) throws AbstractException {
         if(!validateFavoriteOwn(userId, id)) throw new Common403Exception();
-        favoriteCommandPort.delete(userId, id);
+        favoriteCommandPort.delete(id);
     }
 
     @Override
     public void delete(long userId, List<Long> ids) throws AbstractException {
         if(!validateFavoriteOwn(userId, ids)) throw new Common403Exception();
-        favoriteCommandPort.delete(userId, ids);
+        favoriteCommandPort.delete(ids);
     }
 
     private boolean validateFavoriteOwn(long userId, long id) {
-        return userId == favoriteQueryPort.get(id).getUserId();
+        return userId == favoriteReader.get(id).userId();
     }
 
     private boolean validateFavoriteOwn(long userId, List<Long> ids) {
@@ -52,5 +51,4 @@ public class FavoriteWriter implements FavoriteCommand {
         }
         return true;
     }
-
 }
