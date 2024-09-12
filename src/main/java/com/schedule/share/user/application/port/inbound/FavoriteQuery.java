@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface FavoriteQuery extends DomainQuery<FavoriteVO.Favorite> {
 
+    FavoriteVO.Favorite get(long userId, long id);
     List<FavoriteVO.Favorite> list(long userId);
 }

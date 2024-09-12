@@ -48,9 +48,9 @@ public class FavoriteApi {
     @Operation(summary = "즐겨찾기 단일 조회 API", description = "즐겨찾기를 하나 조회한다.")
     @GetMapping("/{id}")
     public ResponseModel<FavoriteResponseDTO.Response> get(@RequestHeader("access_token") String accessToken, @PathVariable long id) {
-        jwtUtil.checkToken(accessToken);
+        long userId = jwtUtil.getUserId(accessToken);
 
-        FavoriteVO.Favorite favorite = favoriteQuery.get(id);
+        FavoriteVO.Favorite favorite = favoriteQuery.get(userId, id);
 
         return ResponseModel.of(favoriteDTOMapper.toResponseDTO(favorite));
     }

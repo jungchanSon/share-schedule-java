@@ -1,5 +1,6 @@
 package com.schedule.share.user.application.service.user;
 
+import com.schedule.share.common.exception.Common403Exception;
 import com.schedule.share.user.application.port.inbound.FavoriteQuery;
 import com.schedule.share.user.application.port.outbound.FavoriteQueryPort;
 import com.schedule.share.user.application.service.user.vo.FavoriteVO;
@@ -18,15 +19,11 @@ public class FavoriteReader implements FavoriteQuery {
     private final FavoriteMapper favoriteMapper;
 
     @Override
-    public FavoriteVO.Favorite get(long id) {
+    public FavoriteVO.Favorite get(long userId, long id) {
         Favorite favorite = favoriteQueryPort.get(id);
+        if(favorite.getUserId() != userId) throw new Common403Exception();
 
         return favoriteMapper.favoriteToVO(favorite);
-    }
-
-    @Override
-    public List<FavoriteVO.Favorite> list() {
-        return null;
     }
 
     @Override
@@ -34,5 +31,15 @@ public class FavoriteReader implements FavoriteQuery {
         List<Favorite> list = favoriteQueryPort.list(userId);
 
         return list.stream().map(favoriteMapper::favoriteToVO).toList();
+    }
+
+    @Override
+    public FavoriteVO.Favorite get(long id) {
+        return null;
+    }
+
+    @Override
+    public List<FavoriteVO.Favorite> list() {
+        return null;
     }
 }

@@ -16,9 +16,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FavoriteWriter implements FavoriteCommand {
 
+    private final FavoriteQueryPort favoriteQueryPort;
     private final FavoriteCommandPort favoriteCommandPort;
     private final FavoriteMapper favoriteMapper;
-    private final FavoriteReader favoriteReader;
 
     @Override
     public long create(long userId, FavoriteVO.save param) {
@@ -40,12 +40,12 @@ public class FavoriteWriter implements FavoriteCommand {
     }
 
     private boolean validateFavoriteOwn(long userId, long id) {
-        return userId == favoriteReader.get(id).userId();
+        return userId == favoriteQueryPort.get(id).getUserId();
     }
 
     private boolean validateFavoriteOwn(long userId, List<Long> ids) {
         for (long itemId : ids) {
-            if (userId != favoriteReader.get(itemId).userId()) {
+            if (userId != favoriteQueryPort.get(itemId).getUserId()) {
                 return false;
             }
         }
